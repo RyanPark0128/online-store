@@ -1,0 +1,55 @@
+.nav--container {
+    display: flex;
+    width: 100%;
+    height: 9.3vh;
+    align-items: center;
+    justify-content: center
+}
+
+.nav--logo {
+    width: 4vw;
+    height: 4vw;
+    align-items: center;
+    justify-content: center
+}
+
+.nav--button {
+    border: none;
+    text-decoration: none;
+    background-color: white;
+    cursor: pointer;
+    margin-left:3vw;
+    font-size:1.25vw;
+}
+
+.nav--button:focus {
+    outline: none;
+}
+
+.nav--icon__container {
+    margin-left: auto;
+    display:flex;
+    align-items: center;
+}
+
+.nav--icons {
+    font-size:1.8vw;
+    margin-left:1vw;
+    cursor: pointer;
+}
+
+.nav--search {
+    margin-left: 0.5vw;
+    margin-bottom: 3px;
+    width: 12vw;
+    transition: all 0.5s ease-in-out
+}
+
+.nav--search__inactive {
+    width: 0px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    margin-bottom:3px;
+    transition: all 0.5s ease-in-out
+}
