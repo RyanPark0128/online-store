@@ -1,0 +1,50 @@
+.footer--container {
+    background-color: black;
+    height: 55vh;
+    margin-top: 20vh;
+    color:white;
+}
+
+.footer--sns {
+    text-align: center;
+    padding-top: 5vh;
+}
+
+.footer--title {
+    font-size: 1.6vw;
+    font-weight:300;
+}
+
+.footer--icons {
+    font-size: 2vw;
+    
+}
+
+.footer--content__container {
+    margin-top: 2vw;
+}
+
+.footer--content {
+    display:flex;
+    margin-left:8.5%;
+    margin-right: 8.5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer--content__text {
+    font-size: 1.2vw;
+    display:inline-block;
+    padding: 1vw 4.0vw;
+    font-weight:300;
+    width: 33vw;
+}
+
+.footer--comment__container {
+    margin-top: 3vw;
+}
+.footer--comment {
+    font-size: 1.2vw;
+    font-weight: 300;
+    text-align: center;
+}

@@ -6,10 +6,14 @@ const Navbar = () => {
 
     return (
         <div className="nav--container">
-            <img className="nav--logo" src="../Logo.png" alt="logo cloth" />
-            <button className="nav--button"> Men </button>
-            <button className="nav--button"> Women </button>
-            <button className="nav--button"> Accessories </button>
+            <img className="nav--logo" src="images/Logo.png" alt="logo cloth" />
+            <div className="nav--button__container">
+                <button className="nav--button"> Men </button>
+                <button className="nav--button"> Women </button>
+                <button className="nav--button"> Accessories </button>
+                <button className="nav--button"> Kids </button>
+                <button className="nav--button"> Offers </button>
+            </div>
             <div className="nav--icon__container">
                 <i onClick={() => setSearch(!search)} className='bx bx-search-alt-2 nav--icons'></i>
                 <input className={`nav--search${search ? "" : "__inactive"}`} autoComplete="off" placeholder="Search..."/>

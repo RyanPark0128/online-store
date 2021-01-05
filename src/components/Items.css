@@ -1,0 +1,25 @@
+.items--container{
+    margin-left:8.5%;
+    margin-right: 8.5%;
+    margin-top : 10vh;
+}
+
+.items--title {
+    font-size: 2vw;
+}
+
+.items--list {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5vw;
+}
+
+.items--card {
+    padding: 1.5vw;
+    text-align: center;
+}
+
+.items--card__image {
+    width: 18vw;
+}
