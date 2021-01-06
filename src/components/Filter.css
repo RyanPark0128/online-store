@@ -1,0 +1,32 @@
+.filter--container {
+    margin-left:8.5%;
+    margin-right: 8.5%;
+    margin-top: 5vh;
+    position: sticky;
+    top: 13vh;
+    height:30vh;
+}
+
+
+.filter--title__main {
+    font-size:1.25vw;
+    margin-bottom: 4vh;
+}
+
+.filter--title {
+    font-size:1.25vw;
+    margin-bottom: 2vh;
+}
+
+.filter--list {
+    font-size: 1.1vw;
+    margin-bottom: 0.5vh;
+}
+
+.filter--input {
+    margin-left: 0px;
+}
+
+.filter--list__container {
+    padding-bottom: 3vh;
+}
