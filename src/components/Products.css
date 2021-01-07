@@ -1,0 +1,50 @@
+.products--container {
+    margin-top: 5vh;
+    width:73vw;
+}
+
+.products--sort {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.products--sort__button {
+    border: 1px;
+    border-color: #BEBEBE;
+    border-style: solid;
+    border-radius:3px;
+    padding: 5px 10px;
+    font-size: 1vw;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+
+.products--card__list {
+    display:flex;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+.products--card {
+    margin-left:5%;
+    width: 15%;
+}
+
+.products--image {
+    width: 100%;
+}
+
+.products--name {
+    font-size: 1.25vw;
+    margin-left: 11%;
+}
+
+.products--price {
+    font-size: 1vw;
+    margin-left: 11%;
+}
+
+.products--brand {
+    color: 	#A9A9A9;
+    font-size: 1vw;
+    margin-left: 11%;
+}

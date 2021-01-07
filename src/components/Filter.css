@@ -1,10 +1,10 @@
 .filter--container {
     margin-left:8.5%;
-    margin-right: 8.5%;
+    width: 10vw;
     margin-top: 5vh;
     position: sticky;
     top: 13vh;
-    height:30vh;
+    height: 100%;
 }
 
 
