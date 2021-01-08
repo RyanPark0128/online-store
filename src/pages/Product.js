@@ -12,6 +12,7 @@ const Product = () => {
                 <Filter />
                 <Products />
             </div>
+            <Footer/>
         </div>
     )
 }

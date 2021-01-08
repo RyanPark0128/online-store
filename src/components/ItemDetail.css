@@ -1,0 +1,82 @@
+.detail--container {
+    margin-left: 8.5%;
+    margin-right: 8.5%;
+    margin-top: 5vh;
+}
+
+.detail--box {
+    display:flex;
+}
+
+.detail--box__image {
+    width: 50%;
+}
+
+.detail--box__desc {
+    width: 50%;
+    margin-left:20%;
+    margin-top: 5%;
+}
+
+.detail--box__name {
+    font-size: 2.5vw;
+}
+
+.detail--box__brand{
+    color: 	#A9A9A9;
+    font-size: 2.0vw;
+}
+
+.detail--box__price{
+    font-size: 1.75vw;
+}
+
+.detail--box__select {
+    margin: 5% 0;
+}
+
+.detail--box__sizelist {
+    display:flex;
+    margin: 5% 0;
+}
+
+.detail--box__size {
+    background-color: white;
+    color: #FF9B42;
+    outline: none;
+    width: 3.5vw;
+    height: 3.5vw;
+    margin-right: 1vw;
+    border: 1px solid #FF9B42;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s linear
+}
+
+.detail--box__size:hover {
+    background-color: #FF9B42;
+    color: white;
+}
+
+.detail--box__info {
+    font-size: 1.1vw;
+    margin-bottom: 10%;
+}
+
+.detail--box__cart {
+    background-color: #FF9B42;
+    color: white;
+    outline: none;
+    width: 20vw;
+    height: 3vw;
+    margin-right: 1vw;
+    border: 1px solid #FF9B42;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s linear
+}
+
+.detail--box__cart:hover {
+    background-color: white;
+    color: #FF9B42;
+}
