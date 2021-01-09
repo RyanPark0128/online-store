@@ -8,7 +8,7 @@ import Signin from './pages/Signin'
 
 function App() {
   return (
-    <Signup/>
+    <Signin/>
   );
 }
 

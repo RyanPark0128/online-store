@@ -8,8 +8,8 @@
 }
 
 .signup--box {
-    width:30vw;
-    height:55vh;
+    width:25vw;
+    height:45vh;
     border: 1px solid #BEBEBE;
     border-radius: 5px
 }
@@ -71,9 +71,9 @@
 }
 
 .signup--button__one {
-    width: 30%;
+    width: 40%;
     height: 35px;
-    margin-right: 18%;
+    margin-right: 13%;
     background-color:white;
     color: #0066FF;
     outline: none;
@@ -86,7 +86,7 @@
 .signup--button__two {
     width: 30%;
     height: 35px;
-    margin-left: 18%;
+    margin-left: 23%;
     background-color: #0066FF;
     color:white;
     outline: none;
