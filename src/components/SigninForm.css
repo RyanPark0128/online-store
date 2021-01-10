@@ -1,4 +1,4 @@
-.signup--container {
+.signin--container {
     margin-left: 8.5%;
     margin-right: 8.5%;
     margin-top: 6%;
@@ -7,14 +7,14 @@
     justify-content: center
 }
 
-.signup--box {
+.signin--box {
     width:25vw;
     height:45vh;
     border: 1px solid #BEBEBE;
     border-radius: 5px
 }
 
-.signup--box__title {
+.signin--box__title {
     font-size: 1.75vw;
     text-align: center;
     margin-top: 5vh;
@@ -22,21 +22,21 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.signup--row {
+.signin--row {
     display :flex;
     justify-content: center;
     margin: 8% 5%;
 }
 
 
-.signup--input__container {
+.signin--input__container {
     position: relative;
     margin: 0 2%;
     width: 100%;
 
 }
 
-.signup--input {
+.signin--input {
     border: 1px solid 	#BEBEBE;
     width: 100%;
     height: 35px;
@@ -44,7 +44,7 @@
     padding-left: 7px;
 }
 
-.signup--label {
+.signin--label {
     position: absolute;
     left: 10px;
     color: grey;
@@ -55,8 +55,8 @@
     pointer-events:none;
 }
 
-.signup--input:focus + .signup--label,
-.signup--input:valid + .signup--label {
+.signin--input:focus + .signin--label,
+.signin--input:valid + .signin--label {
     transform: translateY(-50%);
     background-color: white;
     color: #0066FF;
@@ -64,13 +64,13 @@
     padding: 2px;
 }
 
-.signup--row__button {
+.signin--row__button {
     display:flex;
     justify-content: center;
     margin: 17% 5%;
 }
 
-.signup--button__one {
+.signin--button__one {
     width: 40%;
     height: 35px;
     margin-right: 13%;
@@ -83,7 +83,7 @@
     text-align: left;
 }
 
-.signup--button__two {
+.signin--button__two {
     width: 30%;
     height: 35px;
     margin-left: 23%;
