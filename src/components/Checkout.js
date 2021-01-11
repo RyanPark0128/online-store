@@ -17,7 +17,7 @@ const Checkout = () => {
                     MY CART
                 </div>
                 <div className="checkout--item__container">
-                    <img className="checkout--item__image" src={data.image} />
+                    <img className="checkout--item__image" alt="product" src={data.image} />
                     <div className="checkout--item__desc">
                         <div className="checkout--item__name">
                             {data.name}

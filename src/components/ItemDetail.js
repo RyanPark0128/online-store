@@ -9,7 +9,7 @@ const data = {
 }
 
 
-const ItemDetail = () => {
+const ItemDetail = ({ item }) => {
     return (
         <div className="detail--container">
             <div>
@@ -17,11 +17,11 @@ const ItemDetail = () => {
                 <span style={{fontSize:'18px'}}>Back</span> */}
             </div>
             <div className="detail--box">
-                <img className="detail--box__image" src={data.image} />
+                <img className="detail--box__image" src={item.image} />
                 <div className="detail--box__desc">
-                    <div className="detail--box__name">{data.name}</div>
-                    <div className="detail--box__brand">{data.brand}</div>
-                    <div className="detail--box__price">{data.price}</div>
+                    <div className="detail--box__name">{item.name}</div>
+                    <div className="detail--box__brand">{item.brand}</div>
+                    <div className="detail--box__price">{item.price}</div>
                     <div className="detail--box__select"> SELECT SIZE </div>
                     <div className="detail--box__sizelist">
                         <button className="detail--box__size">S</button>

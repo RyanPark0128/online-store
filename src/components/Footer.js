@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
             <div className="footer--comment__container">
                 <div className="footer--comment">
-                    This Website is designed and developed by Ryan Park for demo purposes
+                    Website is designed and developed by Ryan Park for demo purposes
                 </div>
                 <div className="footer--comment">
                     @ 2021 All Rights Reserved

@@ -12,7 +12,8 @@
     width: 4vw;
     height: 4vw;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    cursor: pointer;
 }
 
 .nav--button__container {

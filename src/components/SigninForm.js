@@ -1,7 +1,10 @@
 import React from 'react'
 import './SigninForm.css'
+import { useHistory } from "react-router-dom";
 
 const SigninForm = () => {
+    let history = useHistory();
+
     return (
         <div className="signin--container">
             <div className="signin--box">
@@ -26,7 +29,7 @@ const SigninForm = () => {
                 </div>
 
                 <div className="signin--row__button">
-                    <button className="signin--button__one">
+                    <button onClick={() =>  history.push("/signup")} className="signin--button__one">
                         Create account
                     </button>
                     <button className="signin--button__two">

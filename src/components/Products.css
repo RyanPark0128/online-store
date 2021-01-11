@@ -27,6 +27,7 @@
 .products--card {
     margin-left:5%;
     width: 15%;
+    cursor: pointer;
 }
 
 .products--image {

@@ -19,19 +19,19 @@ function App() {
         <Route exact path="/">
           <Main/>
         </Route>
-        <Route path="/product">
+        <Route exact path="/product">
           <Product/>
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
           <Signup/>
         </Route>
-        <Route path="/signin">
+        <Route exact path="/signin">
           <Signin/>
         </Route>
-        <Route path="/checkout">
+        <Route exact path="/checkout">
           <CheckoutPage/>
         </Route>
-        <Route path="/item">
+        <Route exact path="/item/:id">
           <Item/>
         </Route>
       </Switch>
