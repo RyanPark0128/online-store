@@ -1,40 +1,78 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ItemDetail.css'
-
-const data = {
-    name: "Orange Shirt19",
-    brand: "No Brand",
-    price: "$69.69",
-    image: "https://3.imimg.com/data3/QS/JK/MY-12149207/plain-orange-t-shirt-500x500.jpg"
-}
 
 
 const ItemDetail = ({ item }) => {
+    const [quantity, setQuantity] = useState(1)
+    const [selected, setSelected] = useState("")
+
+    const counter = (operation) => {
+        if (!operation) {
+            if (quantity > 1) {
+                setQuantity(quantity - 1)
+            }
+        } else {
+            setQuantity(quantity + 1)
+        }
+    }
+
+    const handleSelected = (size) => {
+        if (size === selected) {
+            return "detail--box__size--selected"
+        } else {
+            return "detail--box__size"
+        }
+    }
+
+    const addToCart = (e) => {
+        e.preventDefault()
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const itemInfo = {
+            id: item.id,
+            name: item.name,
+            brand: item.brand,
+            price: item.price,
+            image: item.image,
+            quantity: quantity
+        }
+        if (!cart) {
+            localStorage.setItem('cart', JSON.stringify([itemInfo]))
+        }
+        else {
+            cart.push(itemInfo)
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+    }
     return (
         <div className="detail--container">
             <div>
-                {/* <i class='bx bx-left-arrow' ></i>
-                <span style={{fontSize:'18px'}}>Back</span> */}
             </div>
             <div className="detail--box">
                 <img className="detail--box__image" src={item.image} />
                 <div className="detail--box__desc">
                     <div className="detail--box__name">{item.name}</div>
                     <div className="detail--box__brand">{item.brand}</div>
-                    <div className="detail--box__price">{item.price}</div>
+                    <div className="detail--box__price">${item.price}</div>
                     <div className="detail--box__select"> SELECT SIZE </div>
                     <div className="detail--box__sizelist">
-                        <button className="detail--box__size">S</button>
-                        <button className="detail--box__size">M</button>
-                        <button className="detail--box__size">L</button>
-                        <button className="detail--box__size">XL</button>
+                        <button onClick={() => setSelected("S")} className={handleSelected("S")}>S</button>
+                        <button onClick={() => setSelected("M")} className={handleSelected("M")}>M</button>
+                        <button onClick={() => setSelected("L")} className={handleSelected("L")}>L</button>
+                        <button onClick={() => setSelected("XL")} className={handleSelected("XL")}>XL</button>
+                    </div>
+                    <div className='detail--box__operation'>
+                        <i onClick={() => counter(false)} className='bx bx-minus detail--box__minus' ></i>
+                        <div className='detail--box__quantity'>
+                            {quantity}
+                        </div>
+                        <i onClick={() => counter(true)} className='bx bx-plus detail--box__plus' ></i>
                     </div>
                     <div className="detail--box__info">
                         <div> &middot; 100% Original Products</div>
                         <div> &middot; Free Delivery on order above $50</div>
                         <div> &middot; Easy 30days returns and exchange</div>
                     </div>
-                    <button className="detail--box__cart">
+                    <button onClick={(e) => addToCart(e)} className="detail--box__cart">
                         ADD TO BAG
                     </button>
                 </div>

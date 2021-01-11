@@ -42,20 +42,54 @@
 
 .detail--box__size {
     background-color: white;
-    color: #FF9B42;
+    color: #0066FF;
     outline: none;
     width: 3.5vw;
     height: 3.5vw;
     margin-right: 1vw;
-    border: 1px solid #FF9B42;
+    border: 1px solid #0066FF;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s linear
 }
 
 .detail--box__size:hover {
-    background-color: #FF9B42;
+    background-color: #0066FF;
     color: white;
+}
+
+.detail--box__size--selected {
+    background-color: #0066FF;
+    color: white;
+    outline: none;
+    width: 3.5vw;
+    height: 3.5vw;
+    margin-right: 1vw;
+    border: 1px solid #0066FF;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s linear
+}
+
+.detail--box__operation {
+    display: flex;
+    margin-bottom: 3%
+}
+
+.detail--box__plus {
+    margin: 1%;
+    cursor: pointer;
+}
+
+.detail--box__minus {
+    margin: 1%;
+    cursor: pointer;
+}
+
+.detail--box__quantity {
+    margin: 0% 1% 1% 1%;
+    font-size: 1.25vw;
+    padding-top: 0px;
 }
 
 .detail--box__info {
@@ -64,13 +98,13 @@
 }
 
 .detail--box__cart {
-    background-color: #FF9B42;
+    background-color: #0066FF;
     color: white;
     outline: none;
     width: 20vw;
     height: 3vw;
     margin-right: 1vw;
-    border: 1px solid #FF9B42;
+    border: 1px solid #0066FF;
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.2s linear
@@ -78,5 +112,5 @@
 
 .detail--box__cart:hover {
     background-color: white;
-    color: #FF9B42;
+    color: #0066FF;
 }
