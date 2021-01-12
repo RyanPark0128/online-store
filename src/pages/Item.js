@@ -15,7 +15,7 @@ const Item = () => {
             .then((response) => {
                 setItem(response.data)
             });
-    }, []);
+    }, [url]);
 
 
     return (

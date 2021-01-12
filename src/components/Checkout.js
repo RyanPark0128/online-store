@@ -1,41 +1,85 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Checkout.css'
 
 const Checkout = () => {
+    const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
+    let sum
+    let shipping
+    let tax
+    let total
 
-    const carts = JSON.parse(localStorage.getItem('cart'));
-    const listItems = carts.map((cart) =>
-        <div className="checkout--item__container">
-            <img className="checkout--item__image" alt="product" src={cart.image} />
-            <div className="checkout--item__desc">
-                <div className="checkout--item__name">
-                    {cart.name}
-                </div>
-                <div className="checkout--item__brand">
-                    {cart.brand}
-                </div>
-                <div className="checkout--item__list">
-                    <div className="checkout--item__price">
-                        ${cart.price}
+    const removeItem = (index) => {
+        let updateCarts = carts
+        updateCarts.splice(index, 1)
+        localStorage.setItem('cart', JSON.stringify(updateCarts))
+        setCarts(JSON.parse(localStorage.getItem('cart')))
+    }
+
+    const handleQuantity = (event, index, operator) => {
+        event.preventDefault();
+        let updateCarts = carts
+        if (!operator) {
+            if (updateCarts[index].quantity > 1) {
+                updateCarts[index].quantity = updateCarts[index].quantity - 1
+                localStorage.setItem('cart', JSON.stringify(updateCarts))
+                setCarts(JSON.parse(localStorage.getItem('cart')))
+            }
+        } else {
+            updateCarts[index].quantity = updateCarts[index].quantity + 1
+            localStorage.setItem('cart', JSON.stringify(updateCarts))
+            setCarts(JSON.parse(localStorage.getItem('cart')))
+        }
+    }
+
+    const listItems = !carts || carts.length < 1 ? <div>Nothing in the Cart!</div> :
+        carts.map((cart, index) =>
+            <div key={index} className="checkout--item__container">
+                <img className="checkout--item__image" alt="product" src={cart.image} />
+                <div className="checkout--item__desc">
+                    <div className="checkout--item__name">
+                        {cart.name}
                     </div>
-                    <div className="checkout--item__select">
+                    <div className="checkout--item__brand">
+                        {cart.brand}
+                    </div>
+                    <div className="checkout--item__list">
+                        <div className="checkout--item__price">
+                            ${cart.price}
+                        </div>
+                        <div className="checkout--item__select">
+                            <div>
+                                Qty:&nbsp;&nbsp;
+                                </div>
+                            <i onClick={(event) => handleQuantity(event, index, false)} className='bx bx-minus checkout--item__minus' ></i>
+                            <div className='checkout--item__quantity'>
+                                {cart.quantity}
+                            </div>
+                            <i onClick={(event) => handleQuantity(event, index, true)} className='bx bx-plus checkout--item__plus' ></i>
+                        </div>
                         <div>
-                            Qty&nbsp;:&nbsp;
-                </div>
-                        <select name="cars" id="cars">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
+                            Size:&nbsp;{cart.size}
+                        </div>
+                        <div onClick={() => removeItem(index)} className="checkout--item__remove">
+                            Remove
+                            </div>
                     </div>
-                    <div className="checkout--item__remove">
-                        Remove
-            </div>
                 </div>
-            </div>
-        </div>
-    );
+            </div>);
+
+    if (!carts || carts.length < 1) {
+        shipping = 0
+        tax = 0
+        total = 0
+        sum = 0
+    } else {
+        sum = 0
+        shipping = 9.99
+        for (let i = 0; i < carts.length; i++) {
+            sum = sum + (carts[i].price * carts[i].quantity)
+        }
+        tax = sum * 0.07
+        total = (Number(tax) + sum + shipping)
+    }
 
     return (
         <div className="checkout--container">
@@ -51,14 +95,14 @@ const Checkout = () => {
                 </div>
                 <div className="checkout--summary__subtotal">
                     <div className="checkout--summary__left">Subtotal</div>
-                    <div className="checkout--summary__right">$69.69</div>
+                    <div className="checkout--summary__right">${sum.toFixed(2)}</div>
                 </div>
                 <div className="checkout--summary__tax">
                     <div className="checkout--summary__left">
                         Taxes
                     </div>
                     <div className="checkout--summary__right">
-                        $6.69
+                        ${tax.toFixed(2)}
                     </div>
                 </div>
                 <div className="checkout--summary__shipping">
@@ -66,7 +110,7 @@ const Checkout = () => {
                         Shipping
                     </div>
                     <div className="checkout--summary__right">
-                        $9.99
+                        ${shipping.toFixed(2)}
                     </div>
                 </div>
                 <div className="checkout--summary__total">
@@ -74,9 +118,8 @@ const Checkout = () => {
                         Total
                     </div>
                     <div className="checkout--summary__right">
-                        $74.74
+                        ${total.toFixed(2)}
                     </div>
-
                 </div>
                 <div>
                     <button className="checkout--summary__button">

@@ -9,10 +9,12 @@ const top = {
     products: [{
         name: "Uniclo",
         img: "https://pbs.twimg.com/profile_images/458964185620033537/wS4KHdvj.jpeg"
-    }, {
-        name: "Adidas",
-        img: "https://lh3.googleusercontent.com/proxy/dVeIlr090CmguLdS7EwPmQUSGYRs_ngzTI_4jlgIuLon65POo-tcTCjk9XMSU4mA4nipqIPYavVj0DvHIaRk3RwGuKAPrphU0rvxIGdRafopaK06lGB880iBW-iPO_qQtNMT9EMCiki5uyZ6i7wJwMn-AaV0-MUpOOfZDr_FJtu0jeX1Z3sTIg"
-    }, {
+    },
+    // {
+    //     name: "Adidas",
+    //     img: "https://lh3.googleusercontent.com/proxy/dVeIlr090CmguLdS7EwPmQUSGYRs_ngzTI_4jlgIuLon65POo-tcTCjk9XMSU4mA4nipqIPYavVj0DvHIaRk3RwGuKAPrphU0rvxIGdRafopaK06lGB880iBW-iPO_qQtNMT9EMCiki5uyZ6i7wJwMn-AaV0-MUpOOfZDr_FJtu0jeX1Z3sTIg"
+    // }, 
+    {
         name: "Nike",
         img: "https://spectraelectric.com/wp-content/uploads/2016/11/nike-highres-500x500.jpg"
     }, {

@@ -11,9 +11,10 @@
 
 .checkout--summary__container {
     position: sticky;
-    top: 5vh;
+    top: 11vh;
     height: 100%;
     width: 25vw;
+    margin-left: 10vw;
 }
 
 .checkout--cart__title {
@@ -24,6 +25,7 @@
 .checkout--item__container {
     display:flex;
     margin-top: 5vh;
+    width:40vw;
 }
 
 .checkout--item__image {
@@ -52,16 +54,17 @@
 }
 
 .checkout--item__price {
-    margin-right: 20%;
+    margin-right: 15%;
 }
 
 .checkout--item__select {
-    margin-right: 20%;
+    margin-right: 15%;
     display:flex;
 }
 
 .checkout--item__remove {
     cursor: pointer;
+    margin-left: 15%;
 }
 
 .checkout--summary__title {
@@ -112,4 +115,24 @@
 
 .checkout--summary__button:focus {
     outline:none;
+}
+
+.checkout--item__plus {
+    margin: 3%;
+    cursor: pointer;
+}
+
+.checkout--item__minus {
+    margin: 3%;
+    cursor: pointer;
+}
+
+.checkout--item__quantity {
+    margin: 0% 3% 3% 3%;
+    font-size: 1.25vw;
+    padding-top: 0px;
+}
+
+.checkout--item__size {
+    display:flex;
 }

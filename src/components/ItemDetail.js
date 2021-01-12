@@ -26,21 +26,26 @@ const ItemDetail = ({ item }) => {
 
     const addToCart = (e) => {
         e.preventDefault()
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        const itemInfo = {
-            id: item.id,
-            name: item.name,
-            brand: item.brand,
-            price: item.price,
-            image: item.image,
-            quantity: quantity
-        }
-        if (!cart) {
-            localStorage.setItem('cart', JSON.stringify([itemInfo]))
-        }
-        else {
-            cart.push(itemInfo)
-            localStorage.setItem('cart', JSON.stringify(cart))
+        if (!selected) {
+            alert("Select size for item")
+        } else {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const itemInfo = {
+                id: item.id,
+                name: item.name,
+                brand: item.brand,
+                price: item.price,
+                image: item.image,
+                quantity: quantity,
+                size: selected
+            }
+            if (!cart) {
+                localStorage.setItem('cart', JSON.stringify([itemInfo]))
+            }
+            else {
+                cart.push(itemInfo)
+                localStorage.setItem('cart', JSON.stringify(cart))
+            }
         }
     }
     return (
@@ -48,7 +53,7 @@ const ItemDetail = ({ item }) => {
             <div>
             </div>
             <div className="detail--box">
-                <img className="detail--box__image" src={item.image} />
+                <img className="detail--box__image" alt="item" src={item.image} />
                 <div className="detail--box__desc">
                     <div className="detail--box__name">{item.name}</div>
                     <div className="detail--box__brand">{item.brand}</div>

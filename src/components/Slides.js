@@ -19,7 +19,7 @@ const Slides = () => {
                 {
                     items.map((item, i) => 
                     <div key={i} className="slides--container">
-                        <img className="slides--image" src={item.src} alt="Fashion image"/>
+                        <img className="slides--image" src={item.src} alt="Fashion"/>
                     </div>
                     )
                 }

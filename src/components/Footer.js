@@ -9,10 +9,10 @@ const Footer = () => {
                     Keep In Touch
                 </div>
                 <div className="footer--icons">
-                    <i class='bx bxl-facebook-circle'></i>
-                    <i class='bx bxl-instagram-alt'></i>
-                    <i class='bx bxl-linkedin-square'></i>
-                    <i class='bx bxl-github'></i>
+                    <i className='bx bxl-facebook-circle'></i>
+                    <i className='bx bxl-instagram-alt'></i>
+                    <i className='bx bxl-linkedin-square'></i>
+                    <i className='bx bxl-github'></i>
                 </div>
             </div>
             <div className="footer--content__container">

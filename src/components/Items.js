@@ -2,9 +2,9 @@ import React from 'react';
 import './Items.css'
 
 const Items = ({ data }) => {
-    const listItems = data.products.map((product) => 
-        <div className="items--card">
-            <img className="items--card__image" src={product.img}/>
+    const listItems = data.products.map((product, index) => 
+        <div key={index} className="items--card">
+            <img className="items--card__image" alt="products" src={product.img}/>
             <p>{product.name}</p>
         </div>
     )

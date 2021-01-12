@@ -30,3 +30,28 @@
 .filter--list__container {
     padding-bottom: 3vh;
 }
+
+.filter--checkbox {
+    width: 13px;
+    height: 13px;
+    border: 1px solid grey;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 5%;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter--checkbox__selected {
+    width: 13px;
+    height: 13px;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 5%;
+    cursor: pointer;
+    background-color: #0066FF;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}

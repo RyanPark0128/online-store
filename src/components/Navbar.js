@@ -14,7 +14,7 @@ const Navbar = () => {
                 <button onClick={() => history.push("/product")} className="nav--button"> Women </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Accessories </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Kids </button>
-                <button onClick={() => history.push("/product")} className="nav--button"> Offers </button>
+                <button onClick={() => localStorage.clear()} className="nav--button"> Offers </button>
             </div>
             <div className="nav--icon__container">
                 <i onClick={() => setSearch(!search)} className='bx bx-search-alt-2 nav--icons'></i>
