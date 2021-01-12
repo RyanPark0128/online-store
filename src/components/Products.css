@@ -8,15 +8,58 @@
     justify-content: flex-end;
 }
 
+.products--sort__container {
+    width: 30%;
+    position: relative;
+}
+
 .products--sort__button {
-    border: 1px;
-    border-color: #BEBEBE;
-    border-style: solid;
-    border-radius:3px;
+    padding: 5px 10px;
+    font-size: 0.95vw;
+    border: 1px solid #BEBEBE;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+
+.products--sort__icon {
+    position: absolute;
+    right: 5px;
+}
+
+.products--sort__hidden {
+    position:absolute;
+    width: 100%;
+    top:1px;
+    padding: 5px 10px;
+    color:transparent;
+    font-size: 1vw;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.products--sort__container:hover .products--sort__hidden {
+    transform: translateY(100%);
+    border: 1px solid #BEBEBE;
+    border-top: 0px;
+    width: 100%;
+    background-color:white;
+    color: black;
     padding: 5px 10px;
     font-size: 1vw;
     cursor: pointer;
     letter-spacing: 1.5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.products--sort__container:hover .products--sort__one {
+    transform: translateY(200%);
+    transition: all 0.3s ease-in-out;
+}
+
+.products--sort__container:hover .products--sort__two {
+    transform: translateY(300%);
+    transition: all 0.3s ease-in-out;
 }
 
 .products--card__list {

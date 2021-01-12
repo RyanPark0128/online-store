@@ -1,11 +1,58 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Products.css'
 import { useHistory } from "react-router-dom";
 
 
 
-const Products = ({ products }) => {
+
+const Products = ({ products, setProducts }) => {
     let history = useHistory();
+    const [sort, setSort] = useState("Recommended")
+
+    const handleSort = (item) => {
+        setSort(item)
+        let sorted = products
+
+        function lowToHigh(a, b) {
+            if (a.price < b.price) {
+                return -1;
+            }
+            if (a.price > b.price) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function highToLow(a, b) {
+            if (a.price > b.price) {
+                return -1;
+            }
+            if (a.price > b.price) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function byName(a, b) {
+            if (a.name > b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        }
+
+        if (item === "Price: High to Low") {
+            sorted.sort(highToLow)
+        } else if (item === "Price: Low to High") {
+            sorted.sort(lowToHigh)
+        } else if (item === "Recommended") {
+            sorted.sort(byName)
+        }
+        setProducts(sorted)
+    }
+
     const numbers = []
     for (let i = 0; i < products.length / 5; i++) {
         numbers.push(i)
@@ -22,7 +69,7 @@ const Products = ({ products }) => {
                 <img className="products--image" alt="product" src={products[item].image} />
                 <div className="products--name">{products[item].name}</div>
                 <div className="products--brand">{products[item].brand}</div>
-                <div className="products--price">{products[item].price}</div>
+                <div className="products--price">${products[item].price}</div>
             </div>
         )
     }
@@ -35,10 +82,21 @@ const Products = ({ products }) => {
     return (
         <div className="products--container">
             <div className="products--sort">
-                <div className="products--sort__button">
-                    <span style={{ color: "#BEBEBE" }}> Sort by: &nbsp; </span>
-                    <span>Recommended &nbsp;</span>
-                    <i className='bx bx-chevron-down'></i>
+                <div className="products--sort__container">
+                    <div className="products--sort__button">
+                        <span style={{ color: "#BEBEBE" }}> Sort by: &nbsp; </span>
+                        <span>{sort} &nbsp;</span>
+                        <i className='bx bx-chevron-down products--sort__icon'></i>
+                    </div>
+                    <div onClick={() => handleSort("Recommended")} className="products--sort__hidden">
+                        <span>Recommended &nbsp;</span>
+                    </div>
+                    <div onClick={() => handleSort("Price: High to Low")} className="products--sort__hidden products--sort__one">
+                        <span>Price: High to Low &nbsp;</span>
+                    </div>
+                    <div onClick={() => handleSort("Price: Low to High")} className="products--sort__hidden products--sort__two">
+                        <span>Price: Low to High &nbsp;</span>
+                    </div>
                 </div>
             </div>
             {listItems}

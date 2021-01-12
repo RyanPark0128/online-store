@@ -7,20 +7,22 @@ import axios from 'axios'
 
 const Product = () => {
     const [products, setProducts] = useState([])
+    const [productList, setProductList] = useState([])
 
     useEffect(() => {
         axios.get('https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/products')
             .then((response) => {
                 setProducts(response.data)
+                setProductList(response.data)
             });
-    });
+    },[]);
 
     return (
         <div>
             <Navbar />
             <div style={{display:"flex"}}>
-                <Filter />
-                <Products products={products}/>
+                <Filter setProducts={setProducts} productList={productList}/>
+                <Products products={products} setProducts={setProducts}/>
             </div>
             <Footer/>
         </div>
