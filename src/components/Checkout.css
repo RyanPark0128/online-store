@@ -5,6 +5,20 @@
     display:flex;
 }
 
+.checkout--empty_container {
+    display:flex;
+    justify-content: center;
+}
+
+
+.checkout--empty_image {
+    width: 10vw;
+}
+
+.checkout--empty {
+    text-align: center;
+}
+
 .checkout--cart__container {
     width: 50vw;
 }

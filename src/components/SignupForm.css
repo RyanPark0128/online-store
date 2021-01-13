@@ -9,7 +9,7 @@
 
 .signup--box {
     width:30vw;
-    height:55vh;
+    /* height:55vh; */
     border: 1px solid #BEBEBE;
     border-radius: 5px
 }
@@ -59,15 +59,19 @@
 .signup--input:valid + .signup--label {
     transform: translateY(-50%);
     background-color: white;
-    color: #0066FF;
+    color: grey;
     font-size: 12px;
     padding: 2px;
+}
+
+.signup--input:focus + .signup--label {
+    color: #0066FF;
 }
 
 .signup--row__button {
     display:flex;
     justify-content: center;
-    margin: 17% 5%;
+    margin: 10% 5%;
 }
 
 .signup--button__one {
@@ -93,4 +97,15 @@
     border:none;
     border-radius:5px;
     cursor: pointer;
+}
+
+.signup--error {
+    color: red;
+    text-align:center;
+    font-size: 14px;
+    margin: 5%;
+}
+
+.signup--error__hide {
+    visibility: hidden;
 }

@@ -5,9 +5,15 @@ import { useHistory } from "react-router-dom";
 
 
 
-const Products = ({ products, setProducts }) => {
+const Products = ({ products, setProducts, loading }) => {
     let history = useHistory();
     const [sort, setSort] = useState("Recommended")
+    
+    if (loading) {
+        return <div className="products--loading">
+            <div className="products--loading__loader"></div>
+        </div>
+    }
 
     const handleSort = (item) => {
         setSort(item)

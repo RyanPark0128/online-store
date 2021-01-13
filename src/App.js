@@ -5,37 +5,35 @@ import Item from './pages/Item'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import CheckoutPage from './pages/CheckoutPage'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Cognito } from './context/Cognito'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Main/>
-        </Route>
-        <Route exact path="/product">
-          <Product/>
-        </Route>
-        <Route exact path="/signup">
-          <Signup/>
-        </Route>
-        <Route exact path="/signin">
-          <Signin/>
-        </Route>
-        <Route exact path="/checkout">
-          <CheckoutPage/>
-        </Route>
-        <Route exact path="/item/:id">
-          <Item/>
-        </Route>
-      </Switch>
-    </Router>
+    <Cognito>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route exact path="/product">
+            <Product />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
+          </Route>
+          <Route exact path="/signin">
+            <Signin />
+          </Route>
+          <Route exact path="/checkout">
+            <CheckoutPage />
+          </Route>
+          <Route exact path="/item/:id">
+            <Item />
+          </Route>
+        </Switch>
+      </Router>
+    </Cognito>
   );
 }
 

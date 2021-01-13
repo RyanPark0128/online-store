@@ -70,11 +70,9 @@
     border-radius:2px;
 }
 
-.nav--search:focus {
-    outline: none
-}
 
 .nav--search__inactive {
+    position:relative;
     width: 0px;
     height: 2vw;
     padding: 0px;
@@ -82,4 +80,56 @@
     border: 0px;
     margin-bottom:3px;
     transition: all 0.5s ease-in-out
+}
+
+.nav--search__container {
+    position:relative;
+}
+
+.nav--search__item {
+    position:absolute;
+    left:0;
+    z-index:1;
+    background-color:white;
+    width:25vw;
+    margin-left: 0.5vw;
+    margin-top: 15px;
+    visibility: hidden;
+    transition: all 0.05s linear
+}
+
+.nav--search__item__inactive {
+    display:none;
+}
+
+.search--item__active {
+    cursor: pointer;
+    display:flex;
+    height: 100px;
+}
+
+.nav--search:focus + .nav--search__item {
+    visibility: visible;
+    transition: all 0.05s linear
+}
+
+.search--item__image {
+    height: 80%;
+}
+
+.search--item__box {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.search--item__name {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search--item__brand {
+    color:grey;
+}
+
+.search-item__price {
+
 }

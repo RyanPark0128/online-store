@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import './ItemDetail.css'
 
 
-const ItemDetail = ({ item }) => {
+const ItemDetail = ({ item, loading }) => {
     const [quantity, setQuantity] = useState(1)
     const [selected, setSelected] = useState("")
+
+    if (loading) {
+        return (<div>
+            <div className="detail--loading">
+                <div className="detail--loading__loader"></div>
+            </div>
+        </div>
+        )
+    }
 
     const counter = (operation) => {
         if (!operation) {

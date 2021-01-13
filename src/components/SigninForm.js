@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import './SigninForm.css'
+import { CognitoContext } from '../context/Cognito'
 import { useHistory } from "react-router-dom";
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import UserPool from "../UserPool"
 
 const SigninForm = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const { authenticate } = useContext(CognitoContext)
     let history = useHistory();
 
+    const handleSignin = (event) => {
+        event.preventDefault();
+        authenticate(email, password)
+        .then(data => {
+            console.log("logged in:", data)
+        })
+        .catch(err => {
+            console.log("failed to log in:", err)
+        })
+    }
     return (
         <div className="signin--container">
             <div className="signin--box">
@@ -13,7 +29,7 @@ const SigninForm = () => {
                 </div>
                 <div className="signin--row">
                     <div className="signin--input__container">
-                        <input className="signin--input" required />
+                        <input value={email} onChange={(e)=>setEmail(e.target.value)} className="signin--input" required />
                         <label className="signin--label">
                             <span>Email</span>
                         </label>
@@ -21,18 +37,17 @@ const SigninForm = () => {
                 </div>
                 <div className="signin--row">
                     <div className="signin--input__container">
-                        <input className="signin--input" required />
+                        <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" className="signin--input" required />
                         <label className="signin--label">
                             <span>Password</span>
                         </label>
                     </div>
                 </div>
-
                 <div className="signin--row__button">
                     <button onClick={() =>  history.push("/signup")} className="signin--button__one">
                         Create account
                     </button>
-                    <button className="signin--button__two">
+                    <button onClick={(e)=> handleSignin(e)}className="signin--button__two">
                         Sign in
                     </button>
                 </div>

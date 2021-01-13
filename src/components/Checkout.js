@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import Address from './Address'
 import './Checkout.css'
 
 const Checkout = () => {
     const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [userInfo, setUserInfo] = useState(false)
     let sum
     let shipping
     let tax
@@ -31,7 +33,15 @@ const Checkout = () => {
         }
     }
 
-    const listItems = !carts || carts.length < 1 ? <div>Nothing in the Cart!</div> :
+    const listItems = !carts || carts.length < 1 ?
+        <div>
+            <div className="checkout--empty_container">
+                <img className="checkout--empty_container" src="https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png?compress=1&resize=400x300" />
+            </div>
+            <div className="checkout--empty">
+                Cart is empty
+        </div>
+        </div> :
         carts.map((cart, index) =>
             <div key={index} className="checkout--item__container">
                 <img className="checkout--item__image" alt="product" src={cart.image} />
@@ -65,7 +75,6 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>);
-
     if (!carts || carts.length < 1) {
         shipping = 0
         tax = 0
@@ -85,9 +94,9 @@ const Checkout = () => {
         <div className="checkout--container">
             <div className="checkout--cart__container">
                 <div className="checkout--cart__title">
-                    MY CART
+                    {userInfo ? "Address" : "My Cart"}
                 </div>
-                {listItems}
+                {userInfo ? <Address setUserInfo={setUserInfo}/> : listItems}
             </div>
             <div className="checkout--summary__container">
                 <div className="checkout--summary__title">
@@ -122,8 +131,8 @@ const Checkout = () => {
                     </div>
                 </div>
                 <div>
-                    <button className="checkout--summary__button">
-                        Check out
+                    <button onClick={()=> setUserInfo(true)} className="checkout--summary__button">
+                        {userInfo ? "CHECKOUT" : "PROCEED"}
                     </button>
                 </div>
             </div>

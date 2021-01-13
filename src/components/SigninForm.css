@@ -9,7 +9,6 @@
 
 .signin--box {
     width:25vw;
-    height:45vh;
     border: 1px solid #BEBEBE;
     border-radius: 5px
 }
@@ -17,8 +16,8 @@
 .signin--box__title {
     font-size: 1.75vw;
     text-align: center;
-    margin-top: 5vh;
-    margin-bottom: 7vh;
+    margin-top: 3vw;
+    margin-bottom: 4vw;
     font-family: 'Montserrat', sans-serif;
 }
 
