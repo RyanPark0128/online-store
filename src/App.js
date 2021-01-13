@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useState, useContext, useEffect } from 'react'
 import Main from './pages/Main'
 import Product from './pages/Product'
 import Item from './pages/Item'
@@ -6,11 +7,22 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import CheckoutPage from './pages/CheckoutPage'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Cognito } from './context/Cognito'
+import { CognitoContext } from './context/Cognito'
+import UserRedirect from './helper/Route'
 
-function App() {
+function App() { 
+  const [user, setUser] = useState(false)
+  const { getSession } = useContext(CognitoContext)
+
+  useEffect(() => {
+    getSession()
+    .then(session => {
+        console.log("session: ", session)
+        setUser(true)
+    })
+  }, [])
+  
   return (
-    <Cognito>
       <Router>
         <Switch>
           <Route exact path="/">
@@ -19,12 +31,12 @@ function App() {
           <Route exact path="/product">
             <Product />
           </Route>
-          <Route exact path="/signup">
+          <UserRedirect user={user} path="/signup">
             <Signup />
-          </Route>
-          <Route exact path="/signin">
+            </UserRedirect>
+          <UserRedirect user={user} path="/signin">
             <Signin />
-          </Route>
+          </UserRedirect>
           <Route exact path="/checkout">
             <CheckoutPage />
           </Route>
@@ -33,7 +45,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </Cognito>
   );
 }
 

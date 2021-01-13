@@ -16,7 +16,6 @@ const SignupForm = () => {
 
     const onSignup = (event) => {
         event.preventDefault();
-
         let attributeList = [];
         const dataFirst = {
             Name: 'name',
@@ -37,7 +36,6 @@ const SignupForm = () => {
                 console.log(err)
             } else {
                 history.push("/signin")
-
             }
         })
     }

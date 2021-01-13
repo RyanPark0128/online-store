@@ -1,10 +1,12 @@
 import React, { createContext } from 'react'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import { useHistory } from "react-router-dom";
 import Pool from "../UserPool"
 
 const CognitoContext = createContext()
 
 const Cognito = (props) => {
+    let history = useHistory();
     const getSession = async () => {
         await new Promise((resolve, reject) => {
             const user = Pool.getCurrentUser();
@@ -14,7 +16,6 @@ const Cognito = (props) => {
                         reject()
                     } else {
                         resolve(session)
-                        console.log(session)
                     }
                 })
             } else {
@@ -42,11 +43,16 @@ const Cognito = (props) => {
             })
         })
     }
-    const logout = () => {
-        const user = Pool.getCurrentUser();
-        if (user) {
-            user.signOut();
-        }
+    const logout = async () => {
+        await new Promise ((resolve, reject) => {
+            const user = Pool.getCurrentUser();
+            if (user) {
+                user.signOut();
+                resolve()
+            } else {
+                reject()
+            }
+        })
     }
     return (
         <CognitoContext.Provider value={{ authenticate, getSession, logout }}>

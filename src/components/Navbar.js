@@ -86,7 +86,7 @@ const Navbar = () => {
                 </div>
                 <i onClick={() => history.push("/checkout")} className='bx bxs-cart-alt nav--icons'></i>
                 {user ? 
-                <i onClick={logout} className='bx bx-log-in nav--icons'></i>
+                <i onClick={() => logout().then(history.push("/signin"))} className='bx bx-log-in nav--icons'></i>
                 :
                 <i onClick={() => history.push("/signin")} className='bx bxs-user nav--icons'></i>
                 }

@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react'
 import './SigninForm.css'
 import { CognitoContext } from '../context/Cognito'
 import { useHistory } from "react-router-dom";
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
-import UserPool from "../UserPool"
 
 const SigninForm = () => {
     const [email, setEmail] = useState("")
@@ -16,6 +14,7 @@ const SigninForm = () => {
         authenticate(email, password)
         .then(data => {
             console.log("logged in:", data)
+            history.push("/")
         })
         .catch(err => {
             console.log("failed to log in:", err)
