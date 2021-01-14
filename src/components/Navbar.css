@@ -95,7 +95,7 @@
     margin-left: 0.5vw;
     margin-top: 15px;
     visibility: hidden;
-    transition: all 0.05s linear
+    transition: all 0.1s linear
 }
 
 .nav--search__item__inactive {
@@ -105,20 +105,27 @@
 .search--item__active {
     cursor: pointer;
     display:flex;
+    justify-content:left;
+    align-items: center;
     height: 100px;
+}
+
+.search--item__active:hover {
+    border: 1px solid grey;
 }
 
 .nav--search:focus + .nav--search__item {
     visibility: visible;
-    transition: all 0.05s linear
+    transition: all 0.5s linear
 }
 
 .search--item__image {
+    margin-left: 15px;
     height: 80%;
 }
 
 .search--item__box {
-    margin-left: 15px;
+    margin-left: 20px;
     margin-top: 10px;
 }
 

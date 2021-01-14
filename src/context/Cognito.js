@@ -31,7 +31,6 @@ const Cognito = (props) => {
                 onSuccess: data => {
                     console.log('onSuccess:', data)
                     resolve(data)
-                    // const accessToken = data.getAccessToken().getJwtToken();
                 },
                 onFailure: err => {
                     reject(err)
@@ -44,7 +43,7 @@ const Cognito = (props) => {
         })
     }
     const logout = async () => {
-        await new Promise ((resolve, reject) => {
+        await new Promise((resolve, reject) => {
             const user = Pool.getCurrentUser();
             if (user) {
                 user.signOut();

@@ -40,9 +40,15 @@ const SignupForm = () => {
         })
     }
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            onSignup(event)
+        }
+    }
+
     return (
         <div className="signup--container">
-            <div className="signup--box">
+            <div onKeyPress={(event) => handleKeyPress(event)} className="signup--box">
                 <div className="signup--box__title">
                     Create your account
                 </div>

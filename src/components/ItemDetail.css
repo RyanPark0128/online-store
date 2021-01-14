@@ -5,8 +5,10 @@
 }
 
 .detail--loading {
-    margin-left: 48.5%;
-    margin-top:5vh;
+    height: 500px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @-webkit-keyframes spin {
@@ -28,6 +30,7 @@
 }
 
 .detail--loading__loader {
+    vertical-align: middle;
 	width: 60px;
 	height: 60px;
 	border: 5px solid #f3f3f3;
