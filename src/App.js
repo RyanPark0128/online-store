@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Main from './pages/Main'
 import Product from './pages/Product'
 import Item from './pages/Item'
@@ -11,15 +11,10 @@ import { CognitoContext } from './context/Cognito'
 import UserRedirect from './helper/Route'
 
 function App() { 
-  const [user, setUser] = useState(false)
-  const { getSession } = useContext(CognitoContext)
-
+  const { getSession, user } = useContext(CognitoContext)
+  
   useEffect(() => {
     getSession()
-    .then(session => {
-        console.log("session: ", session)
-        setUser(true)
-    })
   }, [])
   
   return (

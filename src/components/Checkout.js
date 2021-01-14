@@ -130,10 +130,15 @@ const Checkout = () => {
                         ${total.toFixed(2)}
                     </div>
                 </div>
-                <div>
+                <div> 
+                    {!carts || carts.length < 1 ? 
+                        <button className="checkout--summary__button--inactive">
+                        CHECKOUT
+                    </button> :
                     <button onClick={()=> setUserInfo(true)} className="checkout--summary__button">
-                        {userInfo ? "CHECKOUT" : "PROCEED"}
+                        {!userInfo ? "CHECKOUT" : "PROCEED"}
                     </button>
+                }
                 </div>
             </div>
         </div>

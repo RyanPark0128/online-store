@@ -10,10 +10,9 @@ const Navbar = () => {
     const [searchItem, setSearchItem] = useState(false)
     const [searchKey, setSearchKey] = useState("")
     const [searchComplete, setSearchComplete] = useState([])
-    const [user, setUser] = useState(false)
+    const { getSession, logout, user } = useContext(CognitoContext)
     let history = useHistory();
 
-    const { getSession, logout } = useContext(CognitoContext)
 
     const toggleSearchIcon = () => {
         if (!search) {
@@ -49,10 +48,6 @@ const Navbar = () => {
 
     useEffect(() => {
         getSession()
-        .then(session => {
-            console.log("session: ", session)
-            setUser(true)
-        })
     }, [])
 
     const result = searchComplete.map((item) =>
