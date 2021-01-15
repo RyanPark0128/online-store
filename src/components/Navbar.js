@@ -13,7 +13,6 @@ const Navbar = () => {
     const { getSession, logout, user } = useContext(CognitoContext)
     let history = useHistory();
 
-
     const toggleSearchIcon = () => {
         if (!search) {
             setSearch(!search)

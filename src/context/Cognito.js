@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import { AuthenticationDetails, CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js'
 import Pool from "../UserPool"
 
 const CognitoContext = createContext()
@@ -15,13 +15,26 @@ const Cognito = (props) => {
                         reject()
                     } else {
                         resolve(session)
-                        setUser(session)
-                        console.log(session)
+                        setUser(user)
                     }
                 })
             } else {
                 reject()
             }
+        })
+    }
+    const signup = async (email,password,first,last) => {
+        await new Promise((resolve, reject) => {
+            let attributeList = [];
+            attributeList.push(new CognitoUserAttribute({ Name: 'name', Value: first }));
+            attributeList.push(new CognitoUserAttribute({ Name: 'family_name', Value: last, }));
+            Pool.signUp(email, password, attributeList, null, (err, data) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(data)
+                }
+            })
         })
     }
     const authenticate = async (Username, Password) => {
@@ -56,7 +69,7 @@ const Cognito = (props) => {
         })
     }
     return (
-        <CognitoContext.Provider value={{ authenticate, getSession, logout, user }}>
+        <CognitoContext.Provider value={{ authenticate, getSession, logout, user, signup }}>
             {props.children}
         </CognitoContext.Provider>)
 }

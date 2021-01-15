@@ -11,6 +11,17 @@
     justify-content: center;
 }
 
+.add--loading__loader {
+    vertical-align: middle;
+	width: 25px;
+	height: 25px;
+	border: 3px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 3px solid #0066FF;
+	-webkit-animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
+
 @-webkit-keyframes spin {
 	0% {
 		-webkit-transform: rotate(0deg);

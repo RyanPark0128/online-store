@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { CognitoContext } from '../context/Cognito'
+import axios from 'axios'
 import './ItemDetail.css'
 
 
 const ItemDetail = ({ item, loading }) => {
     const [quantity, setQuantity] = useState(1)
     const [selected, setSelected] = useState("")
+    const [addLoading, setAddLoading] = useState(false)
+    const { user } = useContext(CognitoContext)
 
     if (loading) {
         return (<div>
@@ -38,22 +42,47 @@ const ItemDetail = ({ item, loading }) => {
         if (!selected) {
             alert("Select size for item")
         } else {
-            const cart = JSON.parse(localStorage.getItem('cart'));
-            const itemInfo = {
-                id: item.id,
-                name: item.name,
-                brand: item.brand,
-                price: item.price,
-                image: item.image,
-                quantity: quantity,
-                size: selected
-            }
-            if (!cart) {
-                localStorage.setItem('cart', JSON.stringify([itemInfo]))
-            }
-            else {
-                cart.push(itemInfo)
-                localStorage.setItem('cart', JSON.stringify(cart))
+            setAddLoading(true)
+            if (user) {
+                user.getUserAttributes(function(err, result) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        let email = result[4].getValue()
+                        const itemInfo = {
+                            id: item.id + selected,
+                            name: item.name,
+                            brand: item.brand,
+                            price: item.price,
+                            image: item.image,
+                            quantity: quantity,
+                            size: selected
+                        }
+                        axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
+                            .then((response) => {
+                                setAddLoading(false)
+                                console.log(response)
+                            });
+                    }
+                });
+            } else {
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                const itemInfo = {
+                    id: item.id,
+                    name: item.name,
+                    brand: item.brand,
+                    price: item.price,
+                    image: item.image,
+                    quantity: quantity,
+                    size: selected
+                }
+                if (!cart) {
+                    localStorage.setItem('cart', JSON.stringify([itemInfo]))
+                }
+                else {
+                    cart.push(itemInfo)
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                }
             }
         }
     }
@@ -87,7 +116,9 @@ const ItemDetail = ({ item, loading }) => {
                         <div> &middot; Easy 30days returns and exchange</div>
                     </div>
                     <button onClick={(e) => addToCart(e)} className="detail--box__cart">
-                        ADD TO BAG
+                        {addLoading ? <div className="detail--loading" style={{height: "10px"}}>
+                            <div className="add--loading__loader"></div>
+                        </div> : "ADD TO BAG"}
                     </button>
                 </div>
             </div>

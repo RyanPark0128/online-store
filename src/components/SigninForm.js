@@ -42,7 +42,7 @@ const SigninForm = () => {
                 </div>
                     <div className="signin--row">
                         <div className="signin--input__container">
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} className="signin--input" required />
+                            <input value={email} type="text" onChange={(e) => setEmail(e.target.value)} className="signin--input" required />
                             <label className="signin--label">
                                 <span>Email</span>
                             </label>
@@ -50,7 +50,7 @@ const SigninForm = () => {
                     </div>
                     <div className="signin--row">
                         <div className="signin--input__container">
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="signin--input" required />
+                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="signin--input" autoComplete="new-password" required />
                             <label className="signin--label">
                                 <span>Password</span>
                             </label>

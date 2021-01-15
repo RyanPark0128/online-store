@@ -1,14 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Address from './Address'
+import { CognitoContext } from '../context/Cognito'
 import './Checkout.css'
+import axios from 'axios'
 
 const Checkout = () => {
     const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
     const [userInfo, setUserInfo] = useState(false)
+    const { user } = useContext(CognitoContext)
+    const [loading, setLoading] = useState(true)
     let sum
     let shipping
     let tax
     let total
+
+    useEffect(() => {
+        if (user) {
+            user.getUserAttributes(function(err, result) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    let email = result[4].getValue()
+                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
+                        .then((response) => {
+                            setCarts(response.data)
+                            setLoading(false)
+                            console.log(response.data)
+                        });
+                }
+            });
+        } else {
+            setTimeout(function(){ 
+                setLoading(false) 
+            }, 1000);
+        }
+    }, [user])
 
     const removeItem = (index) => {
         let updateCarts = carts
@@ -54,7 +80,7 @@ const Checkout = () => {
                     </div>
                     <div className="checkout--item__list">
                         <div className="checkout--item__price">
-                            ${cart.price}
+                            ${Number(cart.price)}
                         </div>
                         <div className="checkout--item__select">
                             <div>
@@ -75,11 +101,13 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>);
+
     if (!carts || carts.length < 1) {
         shipping = 0
         tax = 0
         total = 0
         sum = 0
+
     } else {
         sum = 0
         shipping = 9.99
@@ -92,12 +120,15 @@ const Checkout = () => {
 
     return (
         <div className="checkout--container">
-            <div className="checkout--cart__container">
-                <div className="checkout--cart__title">
-                    {userInfo ? "Address" : "My Cart"}
-                </div>
-                {userInfo ? <Address setUserInfo={setUserInfo}/> : listItems}
-            </div>
+            {loading ? <div className="detail--loading" style={{width:"50vw", height:"300px"}}>
+                <div className="detail--loading__loader"></div>
+            </div> :
+                <div className="checkout--cart__container">
+                    <div className="checkout--cart__title">
+                        {userInfo ? "Address" : "My Cart"}
+                    </div>
+                    {userInfo ? <Address setUserInfo={setUserInfo} /> : listItems}
+                </div>}
             <div className="checkout--summary__container">
                 <div className="checkout--summary__title">
                     Summary
@@ -130,15 +161,15 @@ const Checkout = () => {
                         ${total.toFixed(2)}
                     </div>
                 </div>
-                <div> 
-                    {!carts || carts.length < 1 ? 
+                <div>
+                    {!carts || carts.length < 1 ?
                         <button className="checkout--summary__button--inactive">
-                        CHECKOUT
-                    </button> :
-                    <button onClick={()=> setUserInfo(true)} className="checkout--summary__button">
-                        {!userInfo ? "CHECKOUT" : "PROCEED"}
-                    </button>
-                }
+                            CHECKOUT
+                        </button> :
+                        <button onClick={() => setUserInfo(true)} className="checkout--summary__button">
+                            {!userInfo ? "CHECKOUT" : "PROCEED"}
+                        </button>
+                    }
                 </div>
             </div>
         </div>

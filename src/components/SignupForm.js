@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './SignupForm.css'
 import { useHistory } from "react-router-dom";
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
-import UserPool from "../UserPool"
-
+import { CognitoContext } from '../context/Cognito'
 
 const SignupForm = () => {
     const [error, setError] = useState("")
@@ -12,31 +10,19 @@ const SignupForm = () => {
     const [confirm, setConfirm] = useState("")
     const [first, setFirst] = useState("")
     const [last, setLast] = useState("")
+    const { signup } = useContext(CognitoContext)
     let history = useHistory();
 
     const onSignup = (event) => {
         event.preventDefault();
-        let attributeList = [];
-        const dataFirst = {
-            Name: 'name',
-            Value: first,
-        };
-        const dataLast = {
-            Name: 'family_name',
-            Value: last,
-        };
-        const attributeFirst = new CognitoUserAttribute(dataFirst);
-        const attributeLast = new CognitoUserAttribute(dataLast);
-        attributeList.push(attributeFirst);
-        attributeList.push(attributeLast);
-
-        UserPool.signUp(email, password, attributeList, null, (err, data) => {
-            if (err) {
-                setError(err.message)
-                console.log(err)
-            } else {
-                history.push("/signin")
-            }
+        signup(email,password,first,last)
+        .then(data => {
+            console.log(data)
+            history.push("/")
+        })
+        .catch(err => {
+            console.log("failed to log in:", err)
+            setError(err.message)
         })
     }
 
@@ -76,7 +62,7 @@ const SignupForm = () => {
                 </div>
                 <div className="signup--row">
                     <div className="signup--input__container">
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="signup--input" required />
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" className="signup--input" required />
                         <label className="signup--label">
                             <span>Password</span>
                         </label>
