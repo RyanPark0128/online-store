@@ -83,6 +83,7 @@ const ItemDetail = ({ item, loading }) => {
                     cart.push(itemInfo)
                     localStorage.setItem('cart', JSON.stringify(cart))
                 }
+                setAddLoading(false)
             }
         }
     }
@@ -116,7 +117,7 @@ const ItemDetail = ({ item, loading }) => {
                         <div> &middot; Easy 30days returns and exchange</div>
                     </div>
                     <button onClick={(e) => addToCart(e)} className="detail--box__cart">
-                        {addLoading ? <div className="detail--loading" style={{height: "10px"}}>
+                        {addLoading ? <div className="detail--loading" style={{ height: "10px" }}>
                             <div className="add--loading__loader"></div>
                         </div> : "ADD TO BAG"}
                     </button>

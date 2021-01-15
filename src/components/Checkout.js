@@ -9,10 +9,12 @@ const Checkout = () => {
     const [userInfo, setUserInfo] = useState(false)
     const { user } = useContext(CognitoContext)
     const [loading, setLoading] = useState(true)
-    let sum
-    let shipping
-    let tax
-    let total
+    const summary = {
+        sum: 0,
+        shipping: 0,
+        tax: 0,
+        total: 0
+    }
 
     useEffect(() => {
         if (user) {
@@ -30,32 +32,109 @@ const Checkout = () => {
                 }
             });
         } else {
-            setTimeout(function(){ 
-                setLoading(false) 
+            setTimeout(function() {
+                setLoading(false)
             }, 1000);
         }
     }, [user])
 
-    const removeItem = (index) => {
-        let updateCarts = carts
-        updateCarts.splice(index, 1)
-        localStorage.setItem('cart', JSON.stringify(updateCarts))
-        setCarts(JSON.parse(localStorage.getItem('cart')))
+    const removeItem = (index, id) => {
+        if (user) {
+            setLoading(true)
+            user.getUserAttributes(function(err, result) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    let email = result[4].getValue()
+                    axios.delete(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, { data: { id: id } })
+                        .then(() => {
+                            axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
+                                .then((response) => {
+                                    setCarts(response.data)
+                                    setLoading(false)
+                                });
+                        })
+                }
+            })
+
+        } else {
+            let updateCarts = carts
+            updateCarts.splice(index, 1)
+            localStorage.setItem('cart', JSON.stringify(updateCarts))
+            setCarts(JSON.parse(localStorage.getItem('cart')))
+        }
     }
 
     const handleQuantity = (event, index, operator) => {
         event.preventDefault();
+        setLoading(true)
         let updateCarts = carts
         if (!operator) {
             if (updateCarts[index].quantity > 1) {
-                updateCarts[index].quantity = updateCarts[index].quantity - 1
-                localStorage.setItem('cart', JSON.stringify(updateCarts))
-                setCarts(JSON.parse(localStorage.getItem('cart')))
+                if (user) {
+                    user.getUserAttributes(function(err, result) {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            let email = result[4].getValue()
+                            const itemInfo = {
+                                id: updateCarts[index].id,
+                                name: updateCarts[index].name,
+                                brand: updateCarts[index].brand,
+                                price: updateCarts[index].price,
+                                image: updateCarts[index].image,
+                                quantity: updateCarts[index].quantity - 1,
+                                size: updateCarts[index].size
+                            }
+                            axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
+                                .then(() => {
+                                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
+                                        .then((response) => {
+                                            setCarts(response.data)
+                                            setLoading(false)
+                                        });
+                                });
+                        }
+                    });
+                } else {
+                    updateCarts[index].quantity = updateCarts[index].quantity - 1
+                    localStorage.setItem('cart', JSON.stringify(updateCarts))
+                    setCarts(JSON.parse(localStorage.getItem('cart')))
+                    setLoading(false)
+                }
             }
         } else {
-            updateCarts[index].quantity = updateCarts[index].quantity + 1
-            localStorage.setItem('cart', JSON.stringify(updateCarts))
-            setCarts(JSON.parse(localStorage.getItem('cart')))
+            if (user) {
+                user.getUserAttributes(function(err, result) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        let email = result[4].getValue()
+                        const itemInfo = {
+                            id: updateCarts[index].id,
+                            name: updateCarts[index].name,
+                            brand: updateCarts[index].brand,
+                            price: updateCarts[index].price,
+                            image: updateCarts[index].image,
+                            quantity: updateCarts[index].quantity + 1,
+                            size: updateCarts[index].size
+                        }
+                        axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
+                            .then(() => {
+                                axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
+                                    .then((response) => {
+                                        setCarts(response.data)
+                                        setLoading(false)
+                                    });
+                            });
+                    }
+                });
+            } else {
+                updateCarts[index].quantity = updateCarts[index].quantity + 1
+                localStorage.setItem('cart', JSON.stringify(updateCarts))
+                setCarts(JSON.parse(localStorage.getItem('cart')))
+                setLoading(false)
+            }
         }
     }
 
@@ -95,39 +174,32 @@ const Checkout = () => {
                         <div>
                             Size:&nbsp;{cart.size}
                         </div>
-                        <div onClick={() => removeItem(index)} className="checkout--item__remove">
+                        <div onClick={() => removeItem(index, cart.id)} className="checkout--item__remove">
                             Remove
                             </div>
                     </div>
                 </div>
             </div>);
 
-    if (!carts || carts.length < 1) {
-        shipping = 0
-        tax = 0
-        total = 0
-        sum = 0
-
-    } else {
-        sum = 0
-        shipping = 9.99
+    if (carts || carts.length > 1) {
+        summary.shipping = 9.99
         for (let i = 0; i < carts.length; i++) {
-            sum = sum + (carts[i].price * carts[i].quantity)
+            summary.sum = summary.sum + (carts[i].price * carts[i].quantity)
         }
-        tax = sum * 0.07
-        total = (Number(tax) + sum + shipping)
+        summary.tax = summary.sum * 0.07
+        summary.total = (Number(summary.tax) + summary.sum + summary.shipping)
     }
 
     return (
         <div className="checkout--container">
-            {loading ? <div className="detail--loading" style={{width:"50vw", height:"300px"}}>
+            {loading ? <div className="detail--loading" style={{ width: "50vw", height: "300px" }}>
                 <div className="detail--loading__loader"></div>
             </div> :
                 <div className="checkout--cart__container">
                     <div className="checkout--cart__title">
                         {userInfo ? "Address" : "My Cart"}
                     </div>
-                    {userInfo ? <Address setUserInfo={setUserInfo} /> : listItems}
+                    {userInfo ? <Address carts={carts} summary={summary} setUserInfo={setUserInfo} /> : listItems}
                 </div>}
             <div className="checkout--summary__container">
                 <div className="checkout--summary__title">
@@ -135,14 +207,14 @@ const Checkout = () => {
                 </div>
                 <div className="checkout--summary__subtotal">
                     <div className="checkout--summary__left">Subtotal</div>
-                    <div className="checkout--summary__right">${sum.toFixed(2)}</div>
+                    <div className="checkout--summary__right">${summary.sum.toFixed(2)}</div>
                 </div>
                 <div className="checkout--summary__tax">
                     <div className="checkout--summary__left">
                         Taxes
                     </div>
                     <div className="checkout--summary__right">
-                        ${tax.toFixed(2)}
+                        ${summary.tax.toFixed(2)}
                     </div>
                 </div>
                 <div className="checkout--summary__shipping">
@@ -150,7 +222,7 @@ const Checkout = () => {
                         Shipping
                     </div>
                     <div className="checkout--summary__right">
-                        ${shipping.toFixed(2)}
+                        ${summary.shipping.toFixed(2)}
                     </div>
                 </div>
                 <div className="checkout--summary__total">
@@ -158,7 +230,7 @@ const Checkout = () => {
                         Total
                     </div>
                     <div className="checkout--summary__right">
-                        ${total.toFixed(2)}
+                        ${summary.total.toFixed(2)}
                     </div>
                 </div>
                 <div>
@@ -167,7 +239,7 @@ const Checkout = () => {
                             CHECKOUT
                         </button> :
                         <button onClick={() => setUserInfo(true)} className="checkout--summary__button">
-                            {!userInfo ? "CHECKOUT" : "PROCEED"}
+                            {!userInfo ? "PROCEED" : "CHECKOUT"}
                         </button>
                     }
                 </div>
