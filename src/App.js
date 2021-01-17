@@ -12,7 +12,6 @@ import UserRedirect from './helper/Route'
 
 function App() { 
   const { getSession, user } = useContext(CognitoContext)
-  
   useEffect(() => {
     getSession()
   }, [])

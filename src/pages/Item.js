@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 
-
 const Item = () => {
     let history = useHistory();
     const [item, setItem] = useState({})
@@ -24,9 +23,8 @@ const Item = () => {
                     setLoading(false)
                 }
             });
-    }, [url]);
-
-
+    }, []);
+    
     return (
         <div>
             <Navbar />

@@ -3,7 +3,6 @@ import { CognitoContext } from '../context/Cognito'
 import axios from 'axios'
 import './ItemDetail.css'
 
-
 const ItemDetail = ({ item, loading }) => {
     const [quantity, setQuantity] = useState(1)
     const [selected, setSelected] = useState("")

@@ -51,7 +51,7 @@ const Navbar = () => {
 
     const result = searchComplete.map((item) =>
         <div onClick={()=> history.push(`/item/${item.id}`)} className="search--item__active">
-            <img className="search--item__image" src={item.image} />
+            <img alt="search" className="search--item__image" src={item.image} />
             <div className="search--item__box">
                 <div className="search--item__name">{item.name}</div>
                 <div className="search--item__brand">{item.brand}</div>

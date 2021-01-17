@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Address from './Address'
 import { CognitoContext } from '../context/Cognito'
 import './Checkout.css'
 import axios from 'axios'
@@ -45,33 +44,17 @@ const Checkout = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (user) {
-            const orderData = {
-                email: userEmail,
-                items: carts
-            }
-            const stripe = await stripePromise;
-            const response = await axios.post('http://localhost:4242/', orderData)
-            const session = response.data;
-            const result = await stripe.redirectToCheckout({
-                sessionId: session.id,
-            });
-            if (result.error) {
-                alert(result.error.message)
-            }
-        } else {
-            const orderData = {
-                items: carts
-            }
-            const stripe = await stripePromise;
-            const response = await axios.post('http://localhost:4242/', orderData)
-            const session = response.data;
-            const result = await stripe.redirectToCheckout({
-                sessionId: session.id,
-            });
-            if (result.error) {
-                alert(result.error.message)
-            }
+        const orderData = {
+            items: carts
+        }
+        const stripe = await stripePromise;
+        const response = await axios.post('http://localhost:4242/', orderData)
+        const session = response.data;
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+        if (result.error) {
+            alert(result.error.message)
         }
     }
 
@@ -157,7 +140,7 @@ const Checkout = () => {
     const listItems = !carts || carts.length < 1 ?
         <div>
             <div className="checkout--empty_container">
-                <img className="checkout--empty_container" src="https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png?compress=1&resize=400x300" />
+                <img className="checkout--empty_container" alt="empty cart" src="https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png?compress=1&resize=400x300" />
             </div>
             <div className="checkout--empty">
                 Cart is empty
@@ -223,7 +206,7 @@ const Checkout = () => {
                 <div className="checkout--summary__title">
                     Summary
                 </div>
-                {loading ? <div className="detail--loading" style={{ height: "200px" }}>
+                {loading ? <div className="detail--loading" style={{ height: "150px" }}>
                     <div className="detail--loading__loader"></div>
                 </div> :
                     <div>

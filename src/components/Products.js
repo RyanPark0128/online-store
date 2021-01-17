@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import './Products.css'
 import { useHistory } from "react-router-dom";
 
-
-
-
 const Products = ({ products, setProducts, loading }) => {
     let history = useHistory();
     const [sort, setSort] = useState("Recommended")
@@ -18,7 +15,6 @@ const Products = ({ products, setProducts, loading }) => {
     const handleSort = (item) => {
         setSort(item)
         let sorted = products
-
         function lowToHigh(a, b) {
             if (a.price < b.price) {
                 return -1;
