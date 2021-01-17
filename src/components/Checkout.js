@@ -3,12 +3,16 @@ import Address from './Address'
 import { CognitoContext } from '../context/Cognito'
 import './Checkout.css'
 import axios from 'axios'
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_TK9R3NMHts3AY8Bdd34iQ5AN002xytpmOT');
 
 const Checkout = () => {
     const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
-    const [userInfo, setUserInfo] = useState(false)
     const { user } = useContext(CognitoContext)
     const [loading, setLoading] = useState(true)
+    const [userEmail, setUserEmail] = useState("")
+
     const summary = {
         sum: 0,
         shipping: 0,
@@ -23,11 +27,12 @@ const Checkout = () => {
                     console.log(err)
                 } else {
                     let email = result[4].getValue()
+                    console.log(result)
                     axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
                         .then((response) => {
                             setCarts(response.data)
                             setLoading(false)
-                            console.log(response.data)
+                            setUserEmail(result[4].getValue())
                         });
                 }
             });
@@ -36,27 +41,51 @@ const Checkout = () => {
                 setLoading(false)
             }, 1000);
         }
-    }, [user])
+    }, [])
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        if (user) {
+            const orderData = {
+                email: userEmail,
+                items: carts
+            }
+            const stripe = await stripePromise;
+            const response = await axios.post('http://localhost:4242/', orderData)
+            const session = response.data;
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id,
+            });
+            if (result.error) {
+                alert(result.error.message)
+            }
+        } else {
+            const orderData = {
+                items: carts
+            }
+            const stripe = await stripePromise;
+            const response = await axios.post('http://localhost:4242/', orderData)
+            const session = response.data;
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id,
+            });
+            if (result.error) {
+                alert(result.error.message)
+            }
+        }
+    }
 
     const removeItem = (index, id) => {
         if (user) {
             setLoading(true)
-            user.getUserAttributes(function(err, result) {
-                if (err) {
-                    console.log(err)
-                } else {
-                    let email = result[4].getValue()
-                    axios.delete(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, { data: { id: id } })
-                        .then(() => {
-                            axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
-                                .then((response) => {
-                                    setCarts(response.data)
-                                    setLoading(false)
-                                });
-                        })
-                }
-            })
-
+            axios.delete(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, { data: { id: id } })
+                .then(() => {
+                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                        .then((response) => {
+                            setCarts(response.data)
+                            setLoading(false)
+                        });
+                })
         } else {
             let updateCarts = carts
             updateCarts.splice(index, 1)
@@ -67,35 +96,28 @@ const Checkout = () => {
 
     const handleQuantity = (event, index, operator) => {
         event.preventDefault();
-        setLoading(true)
         let updateCarts = carts
         if (!operator) {
             if (updateCarts[index].quantity > 1) {
+                setLoading(true)
                 if (user) {
-                    user.getUserAttributes(function(err, result) {
-                        if (err) {
-                            console.log(err)
-                        } else {
-                            let email = result[4].getValue()
-                            const itemInfo = {
-                                id: updateCarts[index].id,
-                                name: updateCarts[index].name,
-                                brand: updateCarts[index].brand,
-                                price: updateCarts[index].price,
-                                image: updateCarts[index].image,
-                                quantity: updateCarts[index].quantity - 1,
-                                size: updateCarts[index].size
-                            }
-                            axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
-                                .then(() => {
-                                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
-                                        .then((response) => {
-                                            setCarts(response.data)
-                                            setLoading(false)
-                                        });
+                    const itemInfo = {
+                        id: updateCarts[index].id,
+                        name: updateCarts[index].name,
+                        brand: updateCarts[index].brand,
+                        price: updateCarts[index].price,
+                        image: updateCarts[index].image,
+                        quantity: updateCarts[index].quantity - 1,
+                        size: updateCarts[index].size
+                    }
+                    axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
+                        .then(() => {
+                            axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                                .then((response) => {
+                                    setCarts(response.data)
+                                    setLoading(false)
                                 });
-                        }
-                    });
+                        });
                 } else {
                     updateCarts[index].quantity = updateCarts[index].quantity - 1
                     localStorage.setItem('cart', JSON.stringify(updateCarts))
@@ -104,31 +126,25 @@ const Checkout = () => {
                 }
             }
         } else {
+            setLoading(true)
             if (user) {
-                user.getUserAttributes(function(err, result) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        let email = result[4].getValue()
-                        const itemInfo = {
-                            id: updateCarts[index].id,
-                            name: updateCarts[index].name,
-                            brand: updateCarts[index].brand,
-                            price: updateCarts[index].price,
-                            image: updateCarts[index].image,
-                            quantity: updateCarts[index].quantity + 1,
-                            size: updateCarts[index].size
-                        }
-                        axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
-                            .then(() => {
-                                axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
-                                    .then((response) => {
-                                        setCarts(response.data)
-                                        setLoading(false)
-                                    });
+                const itemInfo = {
+                    id: updateCarts[index].id,
+                    name: updateCarts[index].name,
+                    brand: updateCarts[index].brand,
+                    price: updateCarts[index].price,
+                    image: updateCarts[index].image,
+                    quantity: updateCarts[index].quantity + 1,
+                    size: updateCarts[index].size
+                }
+                axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
+                    .then(() => {
+                        axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                            .then((response) => {
+                                setCarts(response.data)
+                                setLoading(false)
                             });
-                    }
-                });
+                    });
             } else {
                 updateCarts[index].quantity = updateCarts[index].quantity + 1
                 localStorage.setItem('cart', JSON.stringify(updateCarts))
@@ -181,7 +197,9 @@ const Checkout = () => {
                 </div>
             </div>);
 
-    if (carts || carts.length > 1) {
+    if (!carts || carts.length < 1) {
+
+    } else {
         summary.shipping = 9.99
         for (let i = 0; i < carts.length; i++) {
             summary.sum = summary.sum + (carts[i].price * carts[i].quantity)
@@ -197,49 +215,54 @@ const Checkout = () => {
             </div> :
                 <div className="checkout--cart__container">
                     <div className="checkout--cart__title">
-                        {userInfo ? "Address" : "My Cart"}
+                        My Cart
                     </div>
-                    {userInfo ? <Address carts={carts} summary={summary} setUserInfo={setUserInfo} /> : listItems}
+                    {listItems}
                 </div>}
             <div className="checkout--summary__container">
                 <div className="checkout--summary__title">
                     Summary
                 </div>
-                <div className="checkout--summary__subtotal">
-                    <div className="checkout--summary__left">Subtotal</div>
-                    <div className="checkout--summary__right">${summary.sum.toFixed(2)}</div>
-                </div>
-                <div className="checkout--summary__tax">
-                    <div className="checkout--summary__left">
-                        Taxes
+                {loading ? <div className="detail--loading" style={{ height: "200px" }}>
+                    <div className="detail--loading__loader"></div>
+                </div> :
+                    <div>
+                        <div className="checkout--summary__subtotal">
+                            <div className="checkout--summary__left">Subtotal</div>
+                            <div className="checkout--summary__right">${summary.sum.toFixed(2)}</div>
+                        </div>
+                        <div className="checkout--summary__tax">
+                            <div className="checkout--summary__left">
+                                Taxes
                     </div>
-                    <div className="checkout--summary__right">
-                        ${summary.tax.toFixed(2)}
+                            <div className="checkout--summary__right">
+                                ${summary.tax.toFixed(2)}
+                            </div>
+                        </div>
+                        <div className="checkout--summary__shipping">
+                            <div className="checkout--summary__left">
+                                Shipping
                     </div>
-                </div>
-                <div className="checkout--summary__shipping">
-                    <div className="checkout--summary__left">
-                        Shipping
+                            <div className="checkout--summary__right">
+                                ${summary.shipping.toFixed(2)}
+                            </div>
+                        </div>
+                        <div className="checkout--summary__total">
+                            <div className="checkout--summary__left">
+                                Total
                     </div>
-                    <div className="checkout--summary__right">
-                        ${summary.shipping.toFixed(2)}
-                    </div>
-                </div>
-                <div className="checkout--summary__total">
-                    <div className="checkout--summary__left">
-                        Total
-                    </div>
-                    <div className="checkout--summary__right">
-                        ${summary.total.toFixed(2)}
-                    </div>
-                </div>
+                            <div className="checkout--summary__right">
+                                ${summary.total.toFixed(2)}
+                            </div>
+                        </div>
+                    </div>}
                 <div>
-                    {!carts || carts.length < 1 ?
+                    {!carts || carts.length < 1 || loading ?
                         <button className="checkout--summary__button--inactive">
                             CHECKOUT
                         </button> :
-                        <button onClick={() => setUserInfo(true)} className="checkout--summary__button">
-                            {!userInfo ? "PROCEED" : "CHECKOUT"}
+                        <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
+                            CHECKOUT
                         </button>
                     }
                 </div>
