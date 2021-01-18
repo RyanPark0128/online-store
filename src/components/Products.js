@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Products.css'
 import { useHistory } from "react-router-dom";
 
 const Products = ({ products, setProducts, loading }) => {
     let history = useHistory();
     const [sort, setSort] = useState("Recommended")
+    useEffect(() => {
+        handleSort(sort)
+    }, [products])
+    
     
     if (loading) {
         return <div className="products--loading">
@@ -12,6 +16,7 @@ const Products = ({ products, setProducts, loading }) => {
         </div>
     }
 
+    
     const handleSort = (item) => {
         setSort(item)
         let sorted = products
@@ -24,7 +29,6 @@ const Products = ({ products, setProducts, loading }) => {
             }
             return 0;
         }
-
         function highToLow(a, b) {
             if (a.price > b.price) {
                 return -1;
@@ -34,7 +38,6 @@ const Products = ({ products, setProducts, loading }) => {
             }
             return 0;
         }
-
         function byName(a, b) {
             if (a.name > b.name) {
                 return -1;
@@ -44,7 +47,6 @@ const Products = ({ products, setProducts, loading }) => {
             }
             return 0;
         }
-
         if (item === "Price: High to Low") {
             sorted.sort(highToLow)
         } else if (item === "Price: Low to High") {

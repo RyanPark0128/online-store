@@ -48,7 +48,7 @@ const Checkout = () => {
             items: carts
         }
         const stripe = await stripePromise;
-        const response = await axios.post('http://localhost:4242/', orderData)
+        const response = await axios.post('https://polar-plains-17286.herokuapp.com/', orderData)
         const session = response.data;
         const result = await stripe.redirectToCheckout({
             sessionId: session.id,

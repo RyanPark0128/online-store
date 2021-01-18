@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Filter.css'
 
-const categoriesList = ["T-Shirt", "Shorts", "Jeans", "Sweater", "Shirts"]
+const categoriesList = ["T-Shirt", "Shorts", "Jeans", "Sweater", "Shirts", "Pants", "Jacket", "Hoodie"]
 const brandList = ["Adidas", "Nike", "Uniclo", "Lacoste", "Under Armor", "No brand"]
 const priceList = [{
     name: "under $50",
