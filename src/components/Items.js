@@ -1,9 +1,13 @@
 import React from 'react';
 import './Items.css'
+import { useHistory } from "react-router-dom";
+
 
 const Items = ({ data }) => {
+    let history = useHistory();
+
     const listItems = data.products.map((product, index) => 
-        <div key={index} className="items--card">
+        <div onClick={() => history.push("/product")} key={index} className="items--card">
             <img className="items--card__image" alt="products" src={product.img}/>
             <p>{product.name}</p>
         </div>

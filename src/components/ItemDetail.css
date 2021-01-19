@@ -67,6 +67,7 @@
 
 .detail--box__name {
     font-size: 2.5vw;
+    font-family: var(--primary__font);
 }
 
 .detail--box__brand{

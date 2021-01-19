@@ -15,15 +15,15 @@ const SignupForm = () => {
 
     const onSignup = (event) => {
         event.preventDefault();
-        signup(email,password,first,last)
-        .then(data => {
-            console.log(data)
-            history.push("/")
-        })
-        .catch(err => {
-            console.log("failed to log in:", err)
-            setError(err.message)
-        })
+        signup(email, password, first, last)
+            .then(data => {
+                console.log(data)
+                history.push("/")
+            })
+            .catch(err => {
+                console.log("failed to log in:", err)
+                setError(err.message)
+            })
     }
 
     const handleKeyPress = (event) => {
@@ -33,58 +33,60 @@ const SignupForm = () => {
     }
 
     return (
-        <div className="signup--container">
-            <div onKeyPress={(event) => handleKeyPress(event)} className="signup--box">
-                <div className="signup--box__title">
-                    Create your account
+        <div className="fade-in-fwd">
+            <div className="signup--container">
+                <div onKeyPress={(event) => handleKeyPress(event)} className="signup--box">
+                    <div className="signup--box__title">
+                        Create your account
                 </div>
-                <div className="signup--row">
-                    <div className="signup--input__container">
-                        <input value={first} onChange={(e) => setFirst(e.target.value)} className="signup--input" required />
-                        <label className="signup--label">
-                            <span>First name</span>
-                        </label>
+                    <div className="signup--row">
+                        <div className="signup--input__container">
+                            <input value={first} onChange={(e) => setFirst(e.target.value)} className="signup--input" required />
+                            <label className="signup--label">
+                                <span>First name</span>
+                            </label>
+                        </div>
+                        <div className="signup--input__container">
+                            <input value={last} onChange={(e) => setLast(e.target.value)} className="signup--input" required />
+                            <label className="signup--label">
+                                <span>Last name</span>
+                            </label>
+                        </div>
                     </div>
-                    <div className="signup--input__container">
-                        <input value={last} onChange={(e) => setLast(e.target.value)} className="signup--input" required />
-                        <label className="signup--label">
-                            <span>Last name</span>
-                        </label>
+                    <div className="signup--row">
+                        <div className="signup--input__container">
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} className="signup--input" required />
+                            <label className="signup--label">
+                                <span>Email</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div className="signup--row">
-                    <div className="signup--input__container">
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} className="signup--input" required />
-                        <label className="signup--label">
-                            <span>Email</span>
-                        </label>
+                    <div className="signup--row">
+                        <div className="signup--input__container">
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" className="signup--input" required />
+                            <label className="signup--label">
+                                <span>Password</span>
+                            </label>
+                        </div>
+                        <div className="signup--input__container">
+                            <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} className="signup--input" required />
+                            <label className="signup--label">
+                                <span>Confirm</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div className="signup--row">
-                    <div className="signup--input__container">
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" className="signup--input" required />
-                        <label className="signup--label">
-                            <span>Password</span>
-                        </label>
-                    </div>
-                    <div className="signup--input__container">
-                        <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} className="signup--input" required />
-                        <label className="signup--label">
-                            <span>Confirm</span>
-                        </label>
-                    </div>
-                </div>
-                <div className="signup--row__button">
-                    <button onClick={() => history.push("/signin")} className="signup--button__one">
-                        Sign in instead
+                    <div className="signup--row__button">
+                        <button onClick={() => history.push("/signin")} className="signup--button__one">
+                            Sign in instead
                     </button>
-                    <button onClick={(event) => onSignup(event)} className="signup--button__two">
-                        Sign up
+                        <button onClick={(event) => onSignup(event)} className="signup--button__two">
+                            Sign up
                     </button>
-                </div>
+                    </div>
                     <div className={error ? `signup--error` : 'signup--error__hide'}>
                         {error}
                     </div>
+                </div>
             </div>
         </div>
     )

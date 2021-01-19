@@ -81,43 +81,45 @@ const Filter = ({ setProducts, productList }) => {
 
     return (
         <div className="filter--container">
-            <div className="filter--title__main">
-                Filters
+            <div className="fade-in-left">
+                <div className="filter--title__main">
+                    Filters
             </div>
-            <div className="filter--list__container">
-                <div className="filter--title">
-                    Categories
+                <div className="filter--list__container">
+                    <div className="filter--title">
+                        Categories
                 </div>
-                {categoriesList.map((item, index) =>
-                    <div key={index} className="filter--list">
-                        <div onClick={() => handleCategory(item)} className={item === category ? "filter--checkbox__selected" : "filter--checkbox"} />
-                        <label> {item} </label>
-                    </div>
-                )}
-            </div>
-            <div className="filter--list__container">
-                <div className="filter--title">
-                    Brands
-                </div>
-                {brandList.map((item, index) =>
-                    <div key={index} className="filter--list">
-                        <div onClick={() => handleBrand(item)} className={item === brand ? "filter--checkbox__selected" : "filter--checkbox"} />
-                        <label> {item} </label>
-                    </div>
-                )}
-            </div>
-            <div className="filter--list__container">
-                <div className="filter--title">
-                    Prices
-                </div>
-                {priceList.map((item, index) =>
-                    <div key={index} className="filter--list">
-                        <div onClick={() => handlePrice(item.price)} className={price === item.price ? "filter--checkbox__selected" : "filter--checkbox"}>
+                    {categoriesList.map((item, index) =>
+                        <div key={index} className="filter--list">
+                            <div onClick={() => handleCategory(item)} className={item === category ? "filter--checkbox__selected" : "filter--checkbox"} />
+                            <label> {item} </label>
                         </div>
-                        <label> {item.name} </label>
-                    </div>
-                )}
+                    )}
+                </div>
+                <div className="filter--list__container">
+                    <div className="filter--title">
+                        Brands
+                </div>
+                    {brandList.map((item, index) =>
+                        <div key={index} className="filter--list">
+                            <div onClick={() => handleBrand(item)} className={item === brand ? "filter--checkbox__selected" : "filter--checkbox"} />
+                            <label> {item} </label>
+                        </div>
+                    )}
+                </div>
+                <div className="filter--list__container">
+                    <div className="filter--title">
+                        Prices
+                </div>
+                    {priceList.map((item, index) =>
+                        <div key={index} className="filter--list">
+                            <div onClick={() => handlePrice(item.price)} className={price === item.price ? "filter--checkbox__selected" : "filter--checkbox"}>
+                            </div>
+                            <label> {item.name} </label>
+                        </div>
+                    )}
 
+                </div>
             </div>
         </div>
     )

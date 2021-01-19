@@ -9,11 +9,12 @@ import { useHistory } from "react-router-dom";
 const Item = () => {
     let history = useHistory();
     const [item, setItem] = useState({})
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState()
     let { id } = useParams();
     const url = `https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/products/${id}`
 
     useEffect(() => {
+        setLoading(true)
         axios.get(url)
             .then((response) => {
                 if (response.data.errorMessage) {
@@ -23,10 +24,10 @@ const Item = () => {
                     setLoading(false)
                 }
             });
-    }, []);
+    }, [url]);
     
     return (
-        <div>
+        <div className="fade-in-fwd">
             <Navbar />
             <ItemDetail item={item} loading={loading}/>
             <Footer />

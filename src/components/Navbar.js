@@ -50,12 +50,14 @@ const Navbar = () => {
     }, [])
 
     const result = searchComplete.map((item) =>
-        <div onClick={()=> history.push(`/item/${item.id}`)} className="search--item__active">
-            <img alt="search" className="search--item__image" src={item.image} />
-            <div className="search--item__box">
-                <div className="search--item__name">{item.name}</div>
-                <div className="search--item__brand">{item.brand}</div>
-                <div className="search--item__price">${item.price}</div>
+        <div className="fade-in-fwd">
+            <div onClick={() => history.push(`/item/${item.id}`)} className="search--item__active">
+                <img alt="search" className="search--item__image" src={item.image} />
+                <div className="search--item__box">
+                    <div className="search--item__name">{item.name}</div>
+                    <div className="search--item__brand">{item.brand}</div>
+                    <div className="search--item__price">${item.price}</div>
+                </div>
             </div>
         </div>
     );
@@ -67,8 +69,6 @@ const Navbar = () => {
                 <button onClick={() => history.push("/product")} className="nav--button"> Men </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Women </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Accessories </button>
-                <button onClick={() => console.log(localStorage)} className="nav--button"> Kids </button>
-                <button onClick={() => localStorage.clear()} className="nav--button"> Offers </button>
             </div>
             <div className="nav--icon__container">
                 <i onClick={() => toggleSearchIcon()} className='bx bx-search-alt-2 nav--icons'></i>
@@ -79,13 +79,12 @@ const Navbar = () => {
                     </div>
                 </div>
                 <i onClick={() => history.push("/checkout")} className='bx bxs-cart-alt nav--icons'></i>
-                {user ? 
-                <i onClick={() => logout().then(history.push("/signin"))} className='bx bx-log-in nav--icons'></i>
-                :
-                <i onClick={() => history.push("/signin")} className='bx bxs-user nav--icons'></i>
+                {user ?
+                    <i onClick={() => logout().then(history.push("/signin"))} className='bx bx-log-in nav--icons'></i>
+                    :
+                    <i onClick={() => history.push("/signin")} className='bx bxs-user nav--icons'></i>
                 }
             </div>
-
         </div>
     )
 }

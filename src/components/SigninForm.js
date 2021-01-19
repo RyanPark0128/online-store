@@ -35,7 +35,8 @@ const SigninForm = () => {
                 <div className="detail--loading__loader"></div>
             </div>
             :
-            <div onKeyPress={(event) => handleKeyPress(event)} className="signin--container">
+            
+            <div onKeyPress={(event) => handleKeyPress(event)} className="signin--container fade-in-fwd">
                 <div className="signin--box">
                     <div className="signin--box__title">
                         Sign in

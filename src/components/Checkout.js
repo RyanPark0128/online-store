@@ -11,6 +11,7 @@ const Checkout = () => {
     const { user } = useContext(CognitoContext)
     const [loading, setLoading] = useState(true)
     const [userEmail, setUserEmail] = useState("")
+    const [checkout, setCheckout] = useState(false)
 
     const summary = {
         sum: 0,
@@ -44,6 +45,7 @@ const Checkout = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        setCheckout(true)
         const orderData = {
             items: carts
         }
@@ -55,6 +57,7 @@ const Checkout = () => {
         });
         if (result.error) {
             alert(result.error.message)
+            setCheckout(false)
         }
     }
 
@@ -138,7 +141,7 @@ const Checkout = () => {
     }
 
     const listItems = !carts || carts.length < 1 ?
-        <div>
+        <div className="fade-in-fwd">
             <div className="checkout--empty_container">
                 <img className="checkout--empty_container" alt="empty cart" src="https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png?compress=1&resize=400x300" />
             </div>
@@ -147,35 +150,37 @@ const Checkout = () => {
         </div>
         </div> :
         carts.map((cart, index) =>
-            <div key={index} className="checkout--item__container">
-                <img className="checkout--item__image" alt="product" src={cart.image} />
-                <div className="checkout--item__desc">
-                    <div className="checkout--item__name">
-                        {cart.name}
-                    </div>
-                    <div className="checkout--item__brand">
-                        {cart.brand}
-                    </div>
-                    <div className="checkout--item__list">
-                        <div className="checkout--item__price">
-                            ${Number(cart.price)}
+            <div className="fade-in-fwd">
+                <div key={index} className="checkout--item__container">
+                    <img className="checkout--item__image" alt="product" src={cart.image} />
+                    <div className="checkout--item__desc">
+                        <div className="checkout--item__name">
+                            {cart.name}
                         </div>
-                        <div className="checkout--item__select">
-                            <div>
-                                Qty:&nbsp;&nbsp;
+                        <div className="checkout--item__brand">
+                            {cart.brand}
+                        </div>
+                        <div className="checkout--item__list">
+                            <div className="checkout--item__price">
+                                ${Number(cart.price)}
+                            </div>
+                            <div className="checkout--item__select">
+                                <div>
+                                    Qty:&nbsp;&nbsp;
                                 </div>
-                            <i onClick={(event) => handleQuantity(event, index, false)} className='bx bx-minus checkout--item__minus' ></i>
-                            <div className='checkout--item__quantity'>
-                                {cart.quantity}
+                                <i onClick={(event) => handleQuantity(event, index, false)} className='bx bx-minus checkout--item__minus' ></i>
+                                <div className='checkout--item__quantity'>
+                                    {cart.quantity}
+                                </div>
+                                <i onClick={(event) => handleQuantity(event, index, true)} className='bx bx-plus checkout--item__plus' ></i>
                             </div>
-                            <i onClick={(event) => handleQuantity(event, index, true)} className='bx bx-plus checkout--item__plus' ></i>
-                        </div>
-                        <div>
-                            Size:&nbsp;{cart.size}
-                        </div>
-                        <div onClick={() => removeItem(index, cart.id)} className="checkout--item__remove">
-                            Remove
+                            <div>
+                                Size:&nbsp;{cart.size}
                             </div>
+                            <div onClick={() => removeItem(index, cart.id)} className="checkout--item__remove">
+                                Remove
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>);
@@ -209,7 +214,7 @@ const Checkout = () => {
                 {loading ? <div className="detail--loading" style={{ height: "150px" }}>
                     <div className="detail--loading__loader"></div>
                 </div> :
-                    <div>
+                    <div className="fade-in-fwd">
                         <div className="checkout--summary__subtotal">
                             <div className="checkout--summary__left">Subtotal</div>
                             <div className="checkout--summary__right">${summary.sum.toFixed(2)}</div>
@@ -240,15 +245,48 @@ const Checkout = () => {
                         </div>
                     </div>}
                 <div>
-                    {!carts || carts.length < 1 || loading ?
-                        <button className="checkout--summary__button--inactive">
-                            CHECKOUT
+                    {checkout ?
+                        <button className="checkout--summary__button">
+                            <div className="detail--loading" style={{ height: "15px" }}>
+                                <div className="checkout--loading__loader"></div>
+                            </div>
+                        </button>
+                        :
+                        !carts || carts.length < 1 || loading ?
+                            <button className="checkout--summary__button--inactive">
+                                CHECKOUT
                         </button> :
-                        <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
-                            CHECKOUT
+                            <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
+                                CHECKOUT
                         </button>
                     }
                 </div>
+                <div style={{ color: "red" }}>
+                    *Warning*
+                </div>
+                <br />
+                <div>
+                    The checkout won't charge you since it is on the test mode, but i still recommend using :
+                </div>
+                <br />
+                <div>
+                    Card Number :  4242 4242 4242 4242
+                </div>
+                <div>
+                    MM/YY : 0424
+                </div>
+                <div>
+                    CVC : 4242
+                </div>
+                <br />
+                <div>
+                    For testing purposes
+                </div>
+                <br />
+                <div>
+                    The Checkout Session might take up to 30 seconds to load
+                </div>
+
             </div>
         </div>
     )

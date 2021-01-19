@@ -5,18 +5,7 @@ import { useHistory } from "react-router-dom";
 const Products = ({ products, setProducts, loading }) => {
     let history = useHistory();
     const [sort, setSort] = useState("Recommended")
-    useEffect(() => {
-        handleSort(sort)
-    }, [products])
-    
-    
-    if (loading) {
-        return <div className="products--loading">
-            <div className="products--loading__loader"></div>
-        </div>
-    }
 
-    
     const handleSort = (item) => {
         setSort(item)
         let sorted = products
@@ -57,6 +46,18 @@ const Products = ({ products, setProducts, loading }) => {
         setProducts(sorted)
     }
 
+    useEffect(() => {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+        handleSort(sort)
+    }, [products])
+
+
+    if (loading) {
+        return <div className="products--loading">
+            <div className="products--loading__loader"></div>
+        </div>
+    }
+
     const numbers = []
     for (let i = 0; i < products.length / 5; i++) {
         numbers.push(i)
@@ -70,10 +71,12 @@ const Products = ({ products, setProducts, loading }) => {
         }
         return arr.map((item) =>
             <div key={products[item].id} onClick={() => history.push(`/item/${products[item].id}`)} className="products--card">
-                <img className="products--image" alt="product" src={products[item].image} />
-                <div className="products--name">{products[item].name}</div>
-                <div className="products--brand">{products[item].brand}</div>
-                <div className="products--price">${products[item].price}</div>
+                <div className="fade-in-fwd">
+                    <img className="products--image" alt="product" src={products[item].image} />
+                    <div className="products--name">{products[item].name}</div>
+                    <div className="products--brand">{products[item].brand}</div>
+                    <div className="products--price">${products[item].price}</div>
+                </div>
             </div>
         )
     }

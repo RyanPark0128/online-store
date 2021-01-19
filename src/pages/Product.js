@@ -20,8 +20,8 @@ const Product = () => {
     },[]);
 
     return (
-        <div>
-            <Navbar />
+        <div className="fade-in-fwd">
+            <Navbar style={{position:"relative", zIndex:"inherit 100"}}/>
             <div style={{display:"flex"}}>
                 <Filter setProducts={setProducts} productList={productList}/>
                 <Products products={products} setProducts={setProducts} loading={loading}/>

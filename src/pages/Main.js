@@ -12,8 +12,8 @@ const top = {
     },
     {
         name: "Adidas",
-        img: "https://lh3.googleusercontent.com/proxy/JuEiyrEqnKunytwgpO71OUZm2bWnEpLjeSVXthOYz7bP4cO17083FfHZav1ASXi3LXdI5-ZlbKs5zaY127IB5N0CncQq-uiibbiPCjG5ATSaCzi7LQ_uI5hrnXUX_ns-75lMxPqJtEL3gIy9RDo8QZGC_R2bvW2n9p1NUvb3iN2yRreKAUC9tA"
-    }, 
+        img: "https://img.grouponcdn.com/coupons/eib4MvrFP1CMU45LgfHxYV/adidas-highres-500x500"
+    },
     {
         name: "Nike",
         img: "https://spectraelectric.com/wp-content/uploads/2016/11/nike-highres-500x500.jpg"
@@ -61,10 +61,14 @@ const Main = () => {
     return (
         <div>
             <Navbar />
-            <Slides />
-            <Items data={top} />
-            <Items data={category} />
-            <Items data={trending} />
+            <div className="fade-in-top-delay-1">
+                <Slides />
+            </div>
+            <div className="fade-in-top-delay-2">
+                <Items data={top} />
+                <Items data={category} />
+                <Items data={trending} />
+            </div>
             <Footer />
         </div>
     )

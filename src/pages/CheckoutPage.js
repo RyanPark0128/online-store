@@ -5,7 +5,7 @@ import Checkout from '../components/Checkout'
 
 const CheckoutPage = () => {
     return (
-        <div>
+        <div className="fade-in-fwd">
             <Navbar/>
             <Checkout/>
             <Footer/>

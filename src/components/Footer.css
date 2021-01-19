@@ -12,7 +12,7 @@
 
 .footer--title {
     font-size: 1.6vw;
-    font-weight:300;
+    font-family: var(--primary__font);
 }
 
 .footer--icons {

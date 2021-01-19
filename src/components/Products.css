@@ -43,6 +43,7 @@
 .products--sort__container {
 	width: 30%;
 	position: relative;
+	z-index: 1;
 }
 
 .products--sort__button {
@@ -110,17 +111,18 @@
 }
 
 .products--name {
+	font-family: var(--primary__font);
 	font-size: 1.25vw;
-	margin-left: 11%;
+	margin-left: 7%;
 }
 
 .products--price {
 	font-size: 1vw;
-	margin-left: 11%;
+	margin-left: 7%;
 }
 
 .products--brand {
 	color: #a9a9a9;
 	font-size: 1vw;
-	margin-left: 11%;
+	margin-left: 7%;
 }
