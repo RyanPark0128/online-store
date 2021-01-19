@@ -75,6 +75,9 @@ const SignupForm = () => {
                             </label>
                         </div>
                     </div>
+                    <div className={error ? `signup--error` : 'signup--error__hide'}>
+                        {error}
+                    </div>
                     <div className="signup--row__button">
                         <button onClick={() => history.push("/signin")} className="signup--button__one">
                             Sign in instead
@@ -82,9 +85,6 @@ const SignupForm = () => {
                         <button onClick={(event) => onSignup(event)} className="signup--button__two">
                             Sign up
                     </button>
-                    </div>
-                    <div className={error ? `signup--error` : 'signup--error__hide'}>
-                        {error}
                     </div>
                 </div>
             </div>

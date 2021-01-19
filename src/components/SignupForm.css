@@ -8,24 +8,25 @@
 }
 
 .signup--box {
-    width:30vw;
-    /* height:55vh; */
+    width:500px;
+    height:600px;
     border: 1px solid #BEBEBE;
-    border-radius: 5px
+    border-radius: 5px;
+    box-shadow: 1px 2px grey;
 }
 
 .signup--box__title {
-    font-size: 1.75vw;
+    font-size: 30px;
     text-align: center;
-    margin-top: 5vh;
-    margin-bottom: 7vh;
-    font-family: 'Montserrat', sans-serif;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    font-family: var(--primary__font);
 }
 
 .signup--row {
     display :flex;
     justify-content: center;
-    margin: 8% 5%;
+    margin: 5% 5%;
 }
 
 
@@ -71,7 +72,7 @@
 .signup--row__button {
     display:flex;
     justify-content: center;
-    margin: 10% 5%;
+    margin: 13% 5% 5px 5%;
 }
 
 .signup--button__one {

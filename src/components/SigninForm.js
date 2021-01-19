@@ -7,12 +7,14 @@ const SigninForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
     const { authenticate } = useContext(CognitoContext)
     let history = useHistory();
 
     const handleSignin = (event) => {
         event.preventDefault();
         setLoading(true)
+        setError("")
         authenticate(email, password)
             .then(data => {
                 console.log("logged in:", data)
@@ -20,7 +22,7 @@ const SigninForm = () => {
             })
             .catch(err => {
                 setLoading(false)
-                console.log("failed to log in:", err)
+                setError(err.message)
             })
     }
 
@@ -40,7 +42,7 @@ const SigninForm = () => {
                 <div className="signin--box">
                     <div className="signin--box__title">
                         Sign in
-                </div>
+                    </div>
                     <div className="signin--row">
                         <div className="signin--input__container">
                             <input value={email} type="text" onChange={(e) => setEmail(e.target.value)} className="signin--input" required />
@@ -64,6 +66,9 @@ const SigninForm = () => {
                         <button onClick={(e) => handleSignin(e)} className="signin--button__two">
                             Sign in
                     </button>
+                    </div>
+                    <div className="signin--error__message">
+                        {error}
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ const Product = () => {
 
     return (
         <div className="fade-in-fwd">
-            <Navbar style={{position:"relative", zIndex:"inherit 100"}}/>
+            <Navbar/>
             <div style={{display:"flex"}}>
                 <Filter setProducts={setProducts} productList={productList}/>
                 <Products products={products} setProducts={setProducts} loading={loading}/>

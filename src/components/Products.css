@@ -1,6 +1,6 @@
 .products--container {
-	margin-top: 5vh;
-	width: 73vw;
+	margin-top: 50px;
+	width: 73%;
 }
 
 .products--loading {
@@ -40,15 +40,17 @@
 	justify-content: flex-end;
 }
 
+
 .products--sort__container {
-	width: 30%;
+	width: 333px;
 	position: relative;
 	z-index: 1;
+	box-shadow: 0.5px 1px grey;
 }
 
 .products--sort__button {
 	padding: 5px 10px;
-	font-size: 0.95vw;
+	font-size: 18px;
 	border: 1px solid #bebebe;
 	cursor: pointer;
 	letter-spacing: 1.5px;
@@ -65,10 +67,14 @@
 	top: 1px;
 	padding: 5px 10px;
 	color: transparent;
-	font-size: 1vw;
+	font-size: 18px;
 	letter-spacing: 1.5px;
 	transition: all 0.3s ease-in-out;
 	text-align: center;
+}
+
+.products--sort__container:hover {
+	box-shadow: none;
 }
 
 .products--sort__container:hover .products--sort__hidden {
@@ -79,7 +85,6 @@
 	background-color: white;
 	color: black;
 	padding: 5px 10px;
-	font-size: 1vw;
 	cursor: pointer;
 	letter-spacing: 1.5px;
 	transition: all 0.3s ease-in-out;
@@ -97,13 +102,19 @@
 
 .products--card__list {
 	display: flex;
-	margin-top: 5vh;
-	margin-bottom: 5vh;
+	margin-top: 75px;
+	margin-bottom: 50px;
 }
 .products--card {
-	margin-left: 5%;
-	width: 15%;
+	margin-left: 8%;
+	width: 17%;
 	cursor: pointer;
+	transition: all 0.1s linear;
+}
+
+.products--card:hover {
+	transform:scale(1.2);
+	transition: all 0.1s linear;
 }
 
 .products--image {
@@ -112,17 +123,19 @@
 
 .products--name {
 	font-family: var(--primary__font);
-	font-size: 1.25vw;
-	margin-left: 7%;
+	font-size: 15px;
+}
+
+.products--info__container {
+	display: flex;
 }
 
 .products--price {
-	font-size: 1vw;
-	margin-left: 7%;
+	font-size: 15px;
+	margin-left: auto
 }
 
 .products--brand {
 	color: #a9a9a9;
-	font-size: 1vw;
-	margin-left: 7%;
+	font-size: 15px;
 }

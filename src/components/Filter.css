@@ -1,26 +1,27 @@
 .filter--container {
     margin-left:8.5%;
-    width: 10vw;
+    width: 10%;
     margin-top: 50px;
     position: sticky;
-    top: 50px;
+    top: 100px;
     height: 100%;
 }
 
 
 .filter--title__main {
-    font-size:1.25vw;
-    margin-bottom: 4vh;
+    font-size:23px;
+    margin-bottom: 40px;
 }
 
 .filter--title {
-    font-size:1.25vw;
-    margin-bottom: 2vh;
+    font-size:23px;
+    margin-bottom: 20px;
 }
 
 .filter--list {
-    font-size: 1.1vw;
-    margin-bottom: 0.5vh;
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 300;
 }
 
 .filter--input {
@@ -28,7 +29,7 @@
 }
 
 .filter--list__container {
-    padding-bottom: 3vh;
+    padding-bottom: 30px;
 }
 
 .filter--checkbox {
@@ -39,7 +40,6 @@
     display: inline-block;
     margin-right: 5%;
     cursor: pointer;
-    position: relative;
     transition: all 0.2s ease-in-out;
 }
 
@@ -52,6 +52,5 @@
     margin-right: 5%;
     cursor: pointer;
     background-color: #0066FF;
-    position: relative;
     transition: all 0.2s ease-in-out;
 }

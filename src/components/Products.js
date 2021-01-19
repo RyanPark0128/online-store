@@ -64,9 +64,9 @@ const Products = ({ products, setProducts, loading }) => {
     }
     const listItem = (num) => {
         let arr = []
-        for (let i = 0; i < 5; i++) {
-            if (num * 5 + i < products.length) {
-                arr.push(num * 5 + i)
+        for (let i = 0; i < 4; i++) {
+            if (num * 4 + i < products.length) {
+                arr.push(num * 4 + i)
             }
         }
         return arr.map((item) =>
@@ -74,8 +74,10 @@ const Products = ({ products, setProducts, loading }) => {
                 <div className="fade-in-fwd">
                     <img className="products--image" alt="product" src={products[item].image} />
                     <div className="products--name">{products[item].name}</div>
-                    <div className="products--brand">{products[item].brand}</div>
-                    <div className="products--price">${products[item].price}</div>
+                    <div className="products--info__container">
+                        <div className="products--brand">{products[item].brand}</div>
+                        <div className="products--price">${products[item].price}</div>
+                    </div>
                 </div>
             </div>
         )

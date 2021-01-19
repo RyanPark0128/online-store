@@ -7,11 +7,12 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_TK9R3NMHts3AY8Bdd34iQ5AN002xytpmOT');
 
 const Checkout = () => {
-    const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [carts, setCarts] = useState()
     const { user } = useContext(CognitoContext)
     const [loading, setLoading] = useState(true)
     const [userEmail, setUserEmail] = useState("")
     const [checkout, setCheckout] = useState(false)
+    const [dataRefresh, setDataRefresh] = useState(false)
 
     const summary = {
         sum: 0,
@@ -39,9 +40,10 @@ const Checkout = () => {
         } else {
             setTimeout(function() {
                 setLoading(false)
-            }, 1000);
+            }, 1500);
+            setCarts(JSON.parse(localStorage.getItem('cart')))
         }
-    }, [])
+    }, [dataRefresh, user])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -66,11 +68,12 @@ const Checkout = () => {
             setLoading(true)
             axios.delete(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, { data: { id: id } })
                 .then(() => {
-                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                        .then((response) => {
-                            setCarts(response.data)
-                            setLoading(false)
-                        });
+                    setDataRefresh(!dataRefresh)
+                    // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                    //     .then((response) => {
+                    //         setCarts(response.data)
+                    //         setLoading(false)
+                    //     });
                 })
         } else {
             let updateCarts = carts
@@ -96,13 +99,15 @@ const Checkout = () => {
                         quantity: updateCarts[index].quantity - 1,
                         size: updateCarts[index].size
                     }
+                    setLoading(true)
                     axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                         .then(() => {
-                            axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                                .then((response) => {
-                                    setCarts(response.data)
-                                    setLoading(false)
-                                });
+                            setDataRefresh(!dataRefresh)
+                            // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                            //     .then((response) => {
+                            //         setCarts(response.data)
+                            //         setLoading(false)
+                            //     });
                         });
                 } else {
                     updateCarts[index].quantity = updateCarts[index].quantity - 1
@@ -123,13 +128,15 @@ const Checkout = () => {
                     quantity: updateCarts[index].quantity + 1,
                     size: updateCarts[index].size
                 }
+                setLoading(true)
                 axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                     .then(() => {
-                        axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                            .then((response) => {
-                                setCarts(response.data)
-                                setLoading(false)
-                            });
+                        setDataRefresh(!dataRefresh)
+                        // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
+                        //     .then((response) => {
+                        //         setCarts(response.data)
+                        //         setLoading(false)
+                        //     });
                     });
             } else {
                 updateCarts[index].quantity = updateCarts[index].quantity + 1
@@ -198,7 +205,7 @@ const Checkout = () => {
 
     return (
         <div className="checkout--container">
-            {loading ? <div className="detail--loading" style={{ width: "50vw", height: "300px" }}>
+            {loading ? <div className="detail--loading" style={{ width: "53%", height: "300px" }}>
                 <div className="detail--loading__loader"></div>
             </div> :
                 <div className="checkout--cart__container">
@@ -219,7 +226,7 @@ const Checkout = () => {
                             <div className="checkout--summary__left">Subtotal</div>
                             <div className="checkout--summary__right">${summary.sum.toFixed(2)}</div>
                         </div>
-                        <div className="checkout--summary__tax">
+                        <div className="checkout--summary__fees">
                             <div className="checkout--summary__left">
                                 Taxes
                     </div>
@@ -227,7 +234,7 @@ const Checkout = () => {
                                 ${summary.tax.toFixed(2)}
                             </div>
                         </div>
-                        <div className="checkout--summary__shipping">
+                        <div className="checkout--summary__fees">
                             <div className="checkout--summary__left">
                                 Shipping
                     </div>
@@ -235,7 +242,7 @@ const Checkout = () => {
                                 ${summary.shipping.toFixed(2)}
                             </div>
                         </div>
-                        <div className="checkout--summary__total">
+                        <div className="checkout--summary__fees">
                             <div className="checkout--summary__left">
                                 Total
                     </div>
@@ -256,9 +263,9 @@ const Checkout = () => {
                             <button className="checkout--summary__button--inactive">
                                 CHECKOUT
                         </button> :
-                            <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
-                                CHECKOUT
-                        </button>
+                                <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
+                                    CHECKOUT
+                                </button>
                     }
                 </div>
                 <div style={{ color: "red" }}>
