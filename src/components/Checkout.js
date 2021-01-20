@@ -181,7 +181,7 @@ const Checkout = () => {
                                 </div>
                                 <i onClick={(event) => handleQuantity(event, index, true)} className='bx bx-plus checkout--item__plus' ></i>
                             </div>
-                            <div>
+                            <div className="checkout--item__size">
                                 Size:&nbsp;{cart.size}
                             </div>
                             <div onClick={() => removeItem(index, cart.id)} className="checkout--item__remove">
@@ -205,7 +205,7 @@ const Checkout = () => {
 
     return (
         <div className="checkout--container">
-            {loading ? <div className="detail--loading" style={{ width: "53%", height: "300px" }}>
+            {loading ? <div className="checkout--loading__cart">
                 <div className="detail--loading__loader"></div>
             </div> :
                 <div className="checkout--cart__container">
@@ -218,7 +218,7 @@ const Checkout = () => {
                 <div className="checkout--summary__title">
                     Summary
                 </div>
-                {loading ? <div className="detail--loading" style={{ height: "150px" }}>
+                {loading ? <div className="checkout--loading__summary">
                     <div className="detail--loading__loader"></div>
                 </div> :
                     <div className="fade-in-fwd">
@@ -254,7 +254,7 @@ const Checkout = () => {
                 <div>
                     {checkout ?
                         <button className="checkout--summary__button">
-                            <div className="detail--loading" style={{ height: "15px" }}>
+                            <div className="checkout--loading__session">
                                 <div className="checkout--loading__loader"></div>
                             </div>
                         </button>
@@ -269,7 +269,7 @@ const Checkout = () => {
                     }
                 </div>
                 <div style={{ color: "red" }}>
-                    *Warning*
+                    *Attention*
                 </div>
                 <br />
                 <div>

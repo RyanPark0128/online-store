@@ -5,7 +5,8 @@ import { useHistory } from "react-router-dom";
 const Products = ({ products, setProducts, loading }) => {
     let history = useHistory();
     const [sort, setSort] = useState("Recommended")
-
+    const [screenWidth, setScreenWidth] = useState(window.screen.width)
+    const [itemrow, setItemRow] = useState(4)
     const handleSort = (item) => {
         setSort(item)
         let sorted = products
@@ -51,6 +52,26 @@ const Products = ({ products, setProducts, loading }) => {
         handleSort(sort)
     }, [products])
 
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.screen.width)
+        }
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [])
+
+    useEffect(() => {
+        if (screenWidth > 600) {
+            setItemRow(4)
+        } else if (screenWidth < 480){
+            setItemRow(1)
+        } else {
+            setItemRow(2)
+        }
+    }, [screenWidth])
+
 
     if (loading) {
         return <div className="products--loading">
@@ -59,14 +80,14 @@ const Products = ({ products, setProducts, loading }) => {
     }
 
     const numbers = []
-    for (let i = 0; i < products.length / 5; i++) {
+    for (let i = 0; i < products.length / itemrow; i++) {
         numbers.push(i)
     }
     const listItem = (num) => {
         let arr = []
-        for (let i = 0; i < 4; i++) {
-            if (num * 4 + i < products.length) {
-                arr.push(num * 4 + i)
+        for (let i = 0; i < itemrow; i++) {
+            if (num * itemrow + i < products.length) {
+                arr.push(num * itemrow + i)
             }
         }
         return arr.map((item) =>

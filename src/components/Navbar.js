@@ -65,7 +65,7 @@ const Navbar = () => {
     return (
         <div className="nav--container">
             <img onClick={() => history.push("/")} className="nav--logo" src="/images/Logo.png" alt="logo cloth" />
-            <div className="nav--button__container">
+            <div className={`nav--button__container__${search}`}>
                 <button onClick={() => history.push("/product")} className="nav--button"> Men </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Women </button>
                 <button onClick={() => history.push("/product")} className="nav--button"> Accessories </button>

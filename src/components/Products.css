@@ -139,3 +139,161 @@
 	color: #a9a9a9;
 	font-size: 15px;
 }
+
+@media only screen and (max-width: 1024px) {
+	.products--container {
+		margin-top: 30px;
+		width: 75.5%;
+	}
+
+	.products--sort__container {
+		width: 250px;
+	}
+	
+	.products--sort__button {
+		padding: 5px 10px;
+		font-size: 14px;
+	}
+	
+	.products--sort__icon {
+		transform:translateY(2px)
+	}
+	
+	.products--sort__hidden {
+		font-size: 14px;
+	}
+	
+	.products--name {
+		font-size: 13px;
+	}
+	
+	.products--price {
+		font-size: 13px;
+	}
+	
+	.products--brand {
+		font-size: 13px;
+	}
+	
+}
+@media only screen and (max-width: 768px) {
+	.products--container {
+		width: 77.5%;
+	}
+
+	.products--sort__container {
+		width: 225px;
+	}
+	
+	.products--sort__button {
+		padding: 5px 10px;
+		font-size: 12px;
+	}
+	
+	.products--sort__icon {
+		transform:translateY(2px)
+	}
+
+
+	.products--card__list {
+		margin-top: 30px;
+		margin-bottom: 50px;
+	}
+	.products--card {
+		margin-left: 3%;
+		width: 23%;
+		cursor: pointer;
+		transition: all 0.1s linear;
+	}
+	
+	.products--sort__hidden {
+		font-size: 10px;
+	}
+	
+	.products--name {
+		font-size: 11px;
+	}
+	
+	.products--price {
+		font-size: 10px;
+	}
+	
+	.products--brand {
+		font-size: 10px;
+	}
+    
+}
+@media only screen and (max-width: 600px) {
+	.products--container {
+		margin-top: 5px;
+	}
+
+	.products--card__list {
+		margin-top: 30px;
+		margin-bottom: 50px;
+	}
+	.products--card {
+		margin-left: 9%;
+		width: 40%;
+		cursor: pointer;
+		transition: all 0.1s linear;
+	}
+	
+	.products--sort__hidden {
+		font-size: 10px;
+	}
+	
+	.products--name {
+		font-size: 12px;
+	}
+	
+	.products--price {
+		font-size: 10px;
+	}
+	
+	.products--brand {
+		font-size: 10px;
+	}
+    
+}
+
+@media only screen and (max-width: 480px) {
+	.products--container {
+		width: 66.5%;
+		margin-left:3%;
+	}
+
+	.products--sort__container {
+		width: 195px;
+	}
+	
+	.products--sort__button {
+		font-size: 8px;
+	}
+	
+	.products--card__list {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+	.products--card {
+		margin-left: 10%;
+		width: 80%;
+	}
+	
+	.products--sort__hidden {
+		font-size: 10px;
+	}
+	
+	.products--name {
+		font-size: 12px;
+	}
+	
+	.products--price {
+		font-size: 10px;
+	}
+	
+	.products--brand {
+		font-size: 10px;
+	}
+    
+}

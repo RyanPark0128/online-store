@@ -9,6 +9,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CognitoContext } from './context/Cognito'
 import UserRedirect from './helper/Route'
+import Paid from './pages/Paid'
 
 function App() { 
   const { getSession, user } = useContext(CognitoContext)
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/item/:id">
             <Item />
+          </Route>
+          <Route exact path="/success">
+            <Paid/>
           </Route>
         </Switch>
       </Router>

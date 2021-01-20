@@ -8,12 +8,12 @@ const Footer = () => {
                 <div className="footer--title">
                     Keep In Touch
                 </div>
-                <div className="footer--icons">
+                <div className="footer--icons__container">
                 <a href="https://www.linkedin.com/in/ryan-park-552aa9190/" target="_blank" >
-                    <i className='bx bxl-linkedin-square' style={{color:"white"}}/>
+                    <i className='bx bxl-linkedin-square footer--icons' style={{color:"white"}}/>
                 </a>
                 <a href="https://github.com/RyanPark0128" target="_blank" >
-                    <i className='bx bxl-github' style={{color:"white"}}/>
+                    <i className='bx bxl-github footer--icons' style={{color:"white"}}/>
                 </a>
                     <i className='bx bxl-facebook-circle'></i>
                     <i className='bx bxl-instagram-alt'></i>

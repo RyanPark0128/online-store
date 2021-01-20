@@ -1,0 +1,38 @@
+.success--container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 40px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .success--container {
+        height: 200px;
+        font-size: 35px;
+    }
+    
+    .success--image {
+        width: 600px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .success--container {
+        height: 150px;
+        font-size: 25px;
+    }
+    
+    .success--image {
+        width: 350px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .success--container {
+        height: 75px;
+        font-size: 18px;
+    }
+    
+    .success--image {
+        width: 200px;
+    }
+}

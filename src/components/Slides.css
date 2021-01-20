@@ -1,5 +1,153 @@
 .slides--image {
-    height: 25vw;
+    height: 500px;
     object-fit: cover;
     width: 100%;
+    position: relative;
+}
+
+.slides--text__container__right {
+    width:100%;
+    height:100%;
+    position: absolute;
+    right: 10%;
+    top: 100px;
+    color:white;
+    z-index:1;
+    text-align: right;
+}
+
+.slides--text__container__left {
+    width:100%;
+    height:100%;
+    position: absolute;
+    left: 10%;
+    top: 100px;
+    color:white;
+    z-index:1;
+    text-align: left;
+}
+
+.slides--text {
+    font-size: 60px
+}
+
+.slides--text2 {
+    font-size: 60px
+}
+
+.slides--text3 {
+    font-size: 30px
+}
+.slides--button {
+    font-size: 30px;
+    color: white;
+    background-color: black;
+    margin-top: 35px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    height: 60px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .slides--image {
+        height: 350px;
+    }  
+
+    .slides--text__container__left {
+        top: 50px;
+    }
+    .slides--text__container__right {
+        top: 50px;
+    }
+    
+    .slides--text {
+        font-size: 45px
+    }
+    
+    .slides--text2 {
+        font-size: 45px
+    }
+    
+    .slides--text3 {
+        font-size: 15px
+    }
+    .slides--button {
+        font-size: 15px;
+        margin-top: 35px;
+        width: 175px;
+        height: 45px;
+    }
+    
+}
+
+
+@media only screen and (max-width: 768px) {
+    .slides--image {
+        height: 275px;
+    }
+
+    .slides--text__container__right {
+        top: 35px;
+    }
+    .slides--text__container__left {
+        top: 35px;
+    }
+    
+    .slides--text {
+        font-size: 35px
+    }
+    
+    .slides--text2 {
+        font-size: 35px
+    }
+    
+    .slides--text3 {
+        font-size: 12px
+    }
+    .slides--button {
+        font-size: 12px;
+        margin-top: 20px;
+        width: 175px;
+        height: 45px;
+    }
+    
+}
+
+
+@media only screen and (max-width: 480px) {
+    .slides--image {
+        height: 225px;
+    }
+
+    .slides--text__container__right {
+        top: 35px;
+    }
+
+    .slides--text__container__left {
+        top: 35px;
+    }
+    
+    .slides--text {
+        font-size: 25px
+    }
+    
+    .slides--text2 {
+        font-size: 25px
+    }
+    
+    .slides--text3 {
+        font-size: 12px
+    }
+    .slides--button {
+        font-size: 12px;
+        margin-top: 20px;
+        width: 125px;
+        height: 35px;
+    }
+    
 }

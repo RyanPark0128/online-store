@@ -59,6 +59,9 @@ const SigninForm = () => {
                             </label>
                         </div>
                     </div>
+                    <div className="signin--error__message">
+                        {error}
+                    </div>
                     <div className="signin--row__button">
                         <button onClick={() => history.push("/signup")} className="signin--button__one">
                             Create account
@@ -66,9 +69,6 @@ const SigninForm = () => {
                         <button onClick={(e) => handleSignin(e)} className="signin--button__two">
                             Sign in
                     </button>
-                    </div>
-                    <div className="signin--error__message">
-                        {error}
                     </div>
                 </div>
             </div>

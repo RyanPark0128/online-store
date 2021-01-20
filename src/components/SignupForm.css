@@ -1,112 +1,154 @@
 .signup--container {
-    margin-left: 8.5%;
-    margin-right: 8.5%;
-    margin-top: 6%;
-    display:flex;
-    align-items:center;
-    justify-content: center
+	margin-left: 8.5%;
+	margin-right: 8.5%;
+	margin-top: 6%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .signup--box {
-    width:500px;
-    height:600px;
-    border: 1px solid #BEBEBE;
-    border-radius: 5px;
-    box-shadow: 1px 2px grey;
+	width: 500px;
+	height: 100%;
+	border: 1px solid #bebebe;
+	border-radius: 5px;
+	box-shadow: 1px 2px grey;
 }
 
 .signup--box__title {
-    font-size: 30px;
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 60px;
-    font-family: var(--primary__font);
+	font-size: 30px;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 60px;
+	font-family: var(--primary__font);
 }
 
 .signup--row {
-    display :flex;
-    justify-content: center;
-    margin: 5% 5%;
+	display: flex;
+	justify-content: center;
+	margin: 5% 5%;
 }
 
-
 .signup--input__container {
-    position: relative;
-    margin: 0 2%;
-    width: 100%;
-
+	position: relative;
+	margin: 0 2%;
+	width: 100%;
 }
 
 .signup--input {
-    border: 1px solid 	#BEBEBE;
-    width: 100%;
-    height: 35px;
-    border-radius: 5px;
-    padding-left: 7px;
+	border: 1px solid #bebebe;
+	width: 100%;
+	height: 35px;
+	border-radius: 5px;
+	padding-left: 10px;
 }
 
 .signup--label {
-    position: absolute;
-    left: 10px;
-    color: grey;
-    z-index: 1;
-    font-size:14px;
-    transition: all 0.2s ease;
-    transform: translateY(0.75vh);
-    pointer-events:none;
+	position: absolute;
+	left: 10px;
+	color: grey;
+	z-index: 1;
+	font-size: 14px;
+	transition: all 0.2s ease;
+	transform: translateY(8px);
+	pointer-events: none;
 }
 
 .signup--input:focus + .signup--label,
 .signup--input:valid + .signup--label {
-    transform: translateY(-50%);
-    background-color: white;
-    color: grey;
-    font-size: 12px;
-    padding: 2px;
+	transform: translateY(-50%);
+	background-color: white;
+	color: grey;
+	font-size: 12px;
+	padding: 2px;
 }
 
 .signup--input:focus + .signup--label {
-    color: #0066FF;
+	color: #0066ff;
 }
 
 .signup--row__button {
-    display:flex;
-    justify-content: center;
-    margin: 13% 5% 5px 5%;
+	display: flex;
+	justify-content: center;
+	margin: 13% 5% 60px 5%;
 }
 
 .signup--button__one {
-    width: 30%;
-    height: 35px;
-    margin-right: 18%;
-    background-color:white;
-    color: #0066FF;
-    outline: none;
-    border:none;
-    cursor: pointer;
-    padding-left:5px;
-    text-align: left;
+	width: 30%;
+	height: 35px;
+	margin-right: 18%;
+	background-color: white;
+	color: #0066ff;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	padding-left: 5px;
+	text-align: left;
 }
 
 .signup--button__two {
-    width: 30%;
-    height: 35px;
-    margin-left: 18%;
-    background-color: #0066FF;
-    color:white;
-    outline: none;
-    border:none;
-    border-radius:5px;
-    cursor: pointer;
+	width: 30%;
+	height: 35px;
+	margin-left: 18%;
+	background-color: #0066ff;
+	color: white;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 .signup--error {
-    color: red;
-    text-align:center;
-    font-size: 14px;
-    margin: 5%;
+	color: red;
+	text-align: center;
+	font-size: 14px;
+	margin: 5%;
 }
 
 .signup--error__hide {
-    visibility: hidden;
+	visibility: hidden;
+}
+
+@media only screen and (max-width: 1024px) {
+	.signup--container {
+		margin-top: 100px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.signup--container {
+        margin: 60px 4%;
+	}
+	.signup--box {
+		width: 300px;
+	}
+
+	.signup--box__title {
+		font-size: 25px;
+		margin-top: 25px;
+		margin-bottom: 30px;
+    }
+    
+    .signup--label {
+        transform:translateY(8px)
+    }
+
+    .signup--row__button {
+        margin: 50px 5% 20px 5%;
+    }
+    
+    .signup--button__one {
+        width: 100%;
+        margin-right:auto
+    }
+    
+    .signup--button__two {
+        width: 100%;
+        margin-left:auto;
+    
+    }
+    
+    .signup--error {
+        font-size: 12px;
+    }
 }

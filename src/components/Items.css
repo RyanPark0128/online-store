@@ -25,3 +25,56 @@
 .items--card__image {
     width: 100%;
 }
+
+@media only screen and (max-width: 1024px) {
+    .items--container{
+        margin-top : 100px;
+    }
+    .items--list {
+        margin: 5px;
+    }
+    .items--card {
+        padding: 15px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .items--container{
+        margin-top : 60px;
+    }
+    .items--list {
+        margin: 2px;
+    }
+    .items--card {
+        padding: 10px;
+    }
+    .items--title {
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .items--container{
+        margin-top : 40px;
+        margin-left: 4%;
+        margin-right: 4%
+    }
+    .items--list {
+        margin: 2px;
+        width: 100%;
+    }
+    .items--card {
+        padding: 10px;
+    }
+    .items--title {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+
+    .items--card__image {
+        width:50px;
+        height:50px;
+    }
+    .item--card__name {
+        font-size: 10px;
+    }
+}

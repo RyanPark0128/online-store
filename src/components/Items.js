@@ -9,7 +9,7 @@ const Items = ({ data }) => {
     const listItems = data.products.map((product, index) => 
         <div onClick={() => history.push("/product")} key={index} className="items--card">
             <img className="items--card__image" alt="products" src={product.img}/>
-            <p>{product.name}</p>
+            <p className="item--card__name">{product.name}</p>
         </div>
     )
     return (
