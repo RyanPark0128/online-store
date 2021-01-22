@@ -51,8 +51,13 @@ const Checkout = () => {
         const orderData = {
             items: carts
         }
+        let config = {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
         const stripe = await stripePromise;
-        const response = await axios.post('https://polar-plains-17286.herokuapp.com/', orderData)
+        const response = await axios.post('https://polar-plains-17286.herokuapp.com/', orderData, config)
         const session = response.data;
         const result = await stripe.redirectToCheckout({
             sessionId: session.id,
@@ -69,11 +74,6 @@ const Checkout = () => {
             axios.delete(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, { data: { id: id } })
                 .then(() => {
                     setDataRefresh(!dataRefresh)
-                    // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                    //     .then((response) => {
-                    //         setCarts(response.data)
-                    //         setLoading(false)
-                    //     });
                 })
         } else {
             let updateCarts = carts
@@ -132,11 +132,6 @@ const Checkout = () => {
                 axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                     .then(() => {
                         setDataRefresh(!dataRefresh)
-                        // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                        //     .then((response) => {
-                        //         setCarts(response.data)
-                        //         setLoading(false)
-                        //     });
                     });
             } else {
                 updateCarts[index].quantity = updateCarts[index].quantity + 1
@@ -263,8 +258,8 @@ const Checkout = () => {
                             <button className="checkout--summary__button--inactive">
                                 CHECKOUT
                         </button> :
-                                <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
-                                    CHECKOUT
+                            <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
+                                CHECKOUT
                                 </button>
                     }
                 </div>

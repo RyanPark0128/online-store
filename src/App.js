@@ -6,7 +6,7 @@ import Item from './pages/Item'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import CheckoutPage from './pages/CheckoutPage'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { CognitoContext } from './context/Cognito'
 import UserRedirect from './helper/Route'
 import Paid from './pages/Paid'

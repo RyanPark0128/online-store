@@ -12,14 +12,14 @@ const Cognito = (props) => {
             if (user) {
                 user.getSession((err, session) => {
                     if (err) {
-                        reject()
+                        reject(err)
                     } else {
                         resolve(session)
                         setUser(user)
                     }
                 })
             } else {
-                reject()
+                setUser(false)
             }
         })
     }
