@@ -49,8 +49,8 @@ const Navbar = () => {
         getSession()
     }, [])
 
-    const result = searchComplete.map((item) =>
-        <div className="fade-in-fwd">
+    const result = searchComplete.map((item, index) =>
+        <div key={index} className="fade-in-fwd">
             <div onClick={() => history.push(`/item/${item.id}`)} className="search--item__active">
                 <img alt="search" className="search--item__image" src={item.image} />
                 <div className="search--item__box">

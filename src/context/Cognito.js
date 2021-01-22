@@ -43,14 +43,12 @@ const Cognito = (props) => {
             const cognitoUser = new CognitoUser({ Username, Pool });
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess: data => {
-                    console.log('onSuccess:', data)
                     resolve(data)
                 },
                 onFailure: err => {
                     reject(err)
                 },
                 newPasswordRequired: data => {
-                    console.log('newPasswordRequired:', data)
                     resolve(data)
                 }
             })

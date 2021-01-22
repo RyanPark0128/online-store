@@ -28,7 +28,6 @@ const Checkout = () => {
                     console.log(err)
                 } else {
                     let email = result[4].getValue()
-                    console.log(result)
                     axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
                         .then((response) => {
                             setCarts(response.data)
@@ -99,15 +98,10 @@ const Checkout = () => {
                         quantity: updateCarts[index].quantity - 1,
                         size: updateCarts[index].size
                     }
-                    setLoading(true)
                     axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                         .then(() => {
                             setDataRefresh(!dataRefresh)
-                            // axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`)
-                            //     .then((response) => {
-                            //         setCarts(response.data)
-                            //         setLoading(false)
-                            //     });
+                            setLoading(false)
                         });
                 } else {
                     updateCarts[index].quantity = updateCarts[index].quantity - 1
@@ -128,10 +122,10 @@ const Checkout = () => {
                     quantity: updateCarts[index].quantity + 1,
                     size: updateCarts[index].size
                 }
-                setLoading(true)
                 axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                     .then(() => {
                         setDataRefresh(!dataRefresh)
+                        setLoading(false)
                     });
             } else {
                 updateCarts[index].quantity = updateCarts[index].quantity + 1
@@ -152,7 +146,7 @@ const Checkout = () => {
         </div>
         </div> :
         carts.map((cart, index) =>
-            <div className="fade-in-fwd">
+            <div key={index} className="fade-in-fwd">
                 <div key={index} className="checkout--item__container">
                     <img className="checkout--item__image" alt="product" src={cart.image} />
                     <div className="checkout--item__desc">
@@ -186,7 +180,6 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>);
-
     if (!carts || carts.length < 1) {
 
     } else {

@@ -17,11 +17,9 @@ const SignupForm = () => {
         event.preventDefault();
         signup(email, password, first, last)
             .then(data => {
-                console.log(data)
                 history.push("/")
             })
             .catch(err => {
-                console.log("failed to log in:", err)
                 setError(err.message)
             })
     }

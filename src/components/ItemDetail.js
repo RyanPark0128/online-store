@@ -62,9 +62,8 @@ const ItemDetail = ({ item, loading }) => {
                             size: selected
                         }
                         axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`, itemInfo)
-                            .then((response) => {
+                            .then(() => {
                                 setAddLoading(false)
-                                console.log(response)
                             });
                     }
                 });
