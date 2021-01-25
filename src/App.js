@@ -11,38 +11,35 @@ import { CognitoContext } from './context/Cognito'
 import UserRedirect from './helper/Route'
 import Paid from './pages/Paid'
 
-function App() { 
-  const { getSession, user } = useContext(CognitoContext)
-  useEffect(() => {
-    getSession()
-  }, [])
-  
+function App() {
+  const { user } = useContext(CognitoContext)
+
   return (
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route exact path="/product">
-            <Product />
-          </Route>
-          <UserRedirect user={user} path="/signup">
-            <Signup />
-            </UserRedirect>
-          <UserRedirect user={user} path="/signin">
-            <Signin />
-          </UserRedirect>
-          <Route exact path="/checkout">
-            <CheckoutPage />
-          </Route>
-          <Route exact path="/item/:id">
-            <Item />
-          </Route>
-          <Route exact path="/success">
-            <Paid/>
-          </Route>
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route exact path="/product">
+          <Product />
+        </Route>
+        <UserRedirect user={user} path="/signup">
+          <Signup />
+        </UserRedirect>
+        <UserRedirect user={user} path="/signin">
+          <Signin />
+        </UserRedirect>
+        <Route exact path="/checkout">
+          <CheckoutPage />
+        </Route>
+        <Route exact path="/item/:id">
+          <Item />
+        </Route>
+        <Route exact path="/success">
+          <Paid />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

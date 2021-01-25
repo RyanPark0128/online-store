@@ -13,7 +13,6 @@ const Checkout = () => {
     const [userEmail, setUserEmail] = useState("")
     const [checkout, setCheckout] = useState(false)
     const [dataRefresh, setDataRefresh] = useState(false)
-
     const summary = {
         sum: 0,
         shipping: 0,
@@ -101,7 +100,6 @@ const Checkout = () => {
                     axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                         .then(() => {
                             setDataRefresh(!dataRefresh)
-                            setLoading(false)
                         });
                 } else {
                     updateCarts[index].quantity = updateCarts[index].quantity - 1
@@ -125,7 +123,6 @@ const Checkout = () => {
                 axios.post(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${userEmail}`, itemInfo)
                     .then(() => {
                         setDataRefresh(!dataRefresh)
-                        setLoading(false)
                     });
             } else {
                 updateCarts[index].quantity = updateCarts[index].quantity + 1

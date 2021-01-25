@@ -10,8 +10,37 @@ const Navbar = () => {
     const [searchItem, setSearchItem] = useState(false)
     const [searchKey, setSearchKey] = useState("")
     const [searchComplete, setSearchComplete] = useState([])
+    const [debounce, setDebounce] = useState('')
     const { getSession, logout, user } = useContext(CognitoContext)
     let history = useHistory();
+
+    useEffect(() => {
+        getSession()
+    }, [])
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setDebounce(searchKey)
+        }, 500);
+        return () => {
+            clearTimeout(timerId)
+        };
+    }, [searchKey])
+
+    useEffect(() => {
+        if (debounce.length > 3) {
+            let val = debounce.toLowerCase();
+            let arr = []
+            for (let i = 0; i < searchList.length; i++) {
+                if (searchList[i].name.toLowerCase().includes(val) || searchList[i].brand.toLowerCase().includes(val)) {
+                    arr.push(searchList[i])
+                }
+            }
+            arr.splice(3, arr.length)
+            setSearchComplete(arr)
+            setSearchItem(true)
+        }
+    }, [debounce])
 
     const toggleSearchIcon = () => {
         if (!search) {
@@ -27,27 +56,6 @@ const Navbar = () => {
             setSearchItem(false)
         }
     }
-    useEffect(() => {
-        if (searchKey.length > 3) {
-            setSearchItem(true)
-            let val = searchKey.toLowerCase();
-            let arr = []
-            for (let i = 0; i < searchList.length; i++) {
-                if (searchList[i].name.toLowerCase().includes(val) || searchList[i].brand.toLowerCase().includes(val)) {
-                    arr.push(searchList[i])
-                }
-            }
-            arr.splice(3, arr.length)
-            setSearchComplete(arr)
-        } else {
-            setSearchItem(false)
-        }
-
-    }, [searchKey])
-
-    useEffect(() => {
-        getSession()
-    }, [])
 
     const result = searchComplete.map((item, index) =>
         <div key={index} className="fade-in-fwd">

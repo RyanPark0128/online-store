@@ -14,8 +14,8 @@ const Cognito = (props) => {
                     if (err) {
                         reject(err)
                     } else {
-                        resolve(session)
                         setUser(user)
+                        resolve(session)
                     }
                 })
             } else {
@@ -23,7 +23,7 @@ const Cognito = (props) => {
             }
         })
     }
-    const signup = async (email,password,first,last) => {
+    const signup = async (email, password, first, last) => {
         await new Promise((resolve, reject) => {
             let attributeList = [];
             attributeList.push(new CognitoUserAttribute({ Name: 'name', Value: first }));

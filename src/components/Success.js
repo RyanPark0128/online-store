@@ -22,8 +22,8 @@ const Success = () => {
                                     arr.push(response.data[i].id)
                                 }
                                 let resetinfo = {
-                                    "email" : email,
-                                    "products" : arr
+                                    email: email,
+                                    products: arr
                                 }
                                 setLoading(false)
                                 axios.post("https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/clear", resetinfo)
@@ -38,10 +38,10 @@ const Success = () => {
     }, [])
 
     return loading ? <div>
-    <div className="success--loading">
-        <div className="success--loading__loader"></div>
-    </div>
-</div>:
+        <div className="success--loading">
+            <div className="success--loading__loader"></div>
+        </div>
+    </div> :
         <div>
             <div className="success--container">
                 Thank you for your purchase

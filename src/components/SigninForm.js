@@ -14,16 +14,17 @@ const SigninForm = () => {
     const handleSignin = (event) => {
         event.preventDefault();
         setLoading(true)
-        setError("")
         authenticate(email, password)
-            .then(data => {
-                console.log("logged in:", data)
+            .then(() => {
                 history.push("/")
             })
             .catch(err => {
                 setLoading(false)
                 setError(err.message)
             })
+        return () => {
+            setError("")
+        }
     }
 
     const handleKeyPress = (event) => {
@@ -37,7 +38,7 @@ const SigninForm = () => {
                 <div className="detail--loading__loader"></div>
             </div>
             :
-            
+
             <div onKeyPress={(event) => handleKeyPress(event)} className="signin--container fade-in-fwd">
                 <div className="signin--box">
                     <div className="signin--box__title">
