@@ -2,16 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import { CognitoContext } from '../context/Cognito'
 import './Checkout.css'
 import axios from 'axios'
-import { loadStripe } from '@stripe/stripe-js';
-
-const stripePromise = loadStripe('pk_test_TK9R3NMHts3AY8Bdd34iQ5AN002xytpmOT');
+import { useHistory } from "react-router-dom";
+import StripeCheckout from 'react-stripe-checkout'
 
 const Checkout = () => {
     const [carts, setCarts] = useState()
     const { user } = useContext(CognitoContext)
     const [loading, setLoading] = useState(true)
     const [userEmail, setUserEmail] = useState("")
-    const [checkout, setCheckout] = useState(false)
     const [dataRefresh, setDataRefresh] = useState(false)
     const summary = {
         sum: 0,
@@ -19,6 +17,7 @@ const Checkout = () => {
         tax: 0,
         total: 0
     }
+    let history = useHistory();
 
     useEffect(() => {
         if (user) {
@@ -43,29 +42,33 @@ const Checkout = () => {
         }
     }, [dataRefresh, user])
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        setCheckout(true)
-        const orderData = {
-            items: carts
-        }
-        let config = {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        }
-        const stripe = await stripePromise;
-        const response = await axios.post('https://polar-plains-17286.herokuapp.com/', orderData, config)
-        const session = response.data;
-        const result = await stripe.redirectToCheckout({
-            sessionId: session.id,
-        });
-        if (result.error) {
-            alert(result.error.message)
-            setCheckout(false)
+    const handleToken = () => {
+        if (user) {
+            user.getUserAttributes(function(err, result) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    let email = result[4].getValue()
+                    axios.get(`https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/carts/${email}`)
+                        .then((response) => {
+                            let arr = []
+                            for (let i = 0; i < response.data.length; i++) {
+                                arr.push(response.data[i].id)
+                            }
+                            let resetinfo = {
+                                email: email,
+                                products: arr
+                            }
+                            axios.post("https://ac7j0yqyw7.execute-api.us-east-2.amazonaws.com/dev/clear", resetinfo)
+                            history.push("/success")
+                        });
+                }
+            });
+        } else {
+            localStorage.clear();
+            history.push("/success")
         }
     }
-
     const removeItem = (index, id) => {
         if (user) {
             setLoading(true)
@@ -237,20 +240,18 @@ const Checkout = () => {
                         </div>
                     </div>}
                 <div>
-                    {checkout ?
-                        <button className="checkout--summary__button">
-                            <div className="checkout--loading__session">
-                                <div className="checkout--loading__loader"></div>
-                            </div>
-                        </button>
-                        :
-                        !carts || carts.length < 1 || loading ?
-                            <button className="checkout--summary__button--inactive">
-                                CHECKOUT
+                    {!carts || carts.length < 1 || loading ?
+                        <button className="checkout--summary__button--inactive">
+                            CHECKOUT
                         </button> :
-                            <button onClick={(e) => handleSubmit(e)} className="checkout--summary__button">
-                                CHECKOUT
-                                </button>
+                        <StripeCheckout
+                            className="checkout--summary__button"
+                            stripeKey='pk_test_TK9R3NMHts3AY8Bdd34iQ5AN002xytpmOT'
+                            token={handleToken}
+                            billingAddress
+                            shippingAddress
+                            amount={Number(summary.total) * 100}
+                        />
                     }
                 </div>
                 <div style={{ color: "red" }}>
@@ -278,7 +279,6 @@ const Checkout = () => {
                 <div>
                     The Checkout Session might take up to 30 seconds to load
                 </div>
-
             </div>
         </div>
     )
